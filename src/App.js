@@ -1,23 +1,23 @@
-import logo from './logo.svg';
 import './App.css';
+import MeatButton from './components/MeatButton';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        Guess Chef
       </header>
+      <div className="body">
+        <h1>Welcome to Guess Chef!</h1>
+        <p> Do you go to your fridge for a snack, only to find nothing and go back to the couch?
+          Then, when you get there, you realize you're still hungry, so you go back to check again??</p>
+        <div className="meats">
+          < MeatButton />
+          < MeatButton />
+          < MeatButton />
+          < MeatButton />
+        </div>
+      </div>
     </div>
   );
 }
