@@ -21,7 +21,9 @@
 }
 
 .body{
-  padding: 0 2rem;
+  padding: 2rem;
+  background: linear-gradient(#e6fa08,#f29909,#e44523);
+
 }
 
 .meats{
@@ -31,6 +33,20 @@
   padding: 3em;
 }
 
+
+.veggies{
+  display:grid;
+  grid-template-columns: 25% 25%  25% 25%;
+  grid-template-rows:    60% 60% 60% 60%;
+  padding: 3em;
+}
+
+.seasonings{
+  display:grid;
+  grid-template-columns: 25% 25%  25% 25%;
+  grid-template-rows:    60% 60% 60% 60%;
+  padding: 3em;
+}
 .meatButton{
   border: 3px solid maroon;
   background-color: transparent;
