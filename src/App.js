@@ -27,20 +27,20 @@ function App() {
           < MeatButton />
           < MeatButton />
         </div>
-        <div className="veggies">
+        {/* <div className="veggies">
           <button>Veggies</button>
           < VeggieButton />
           < VeggieButton />
           < VeggieButton />
           < VeggieButton />
-        </div>
-        <div className="seasonings">
+        </div> */}
+        {/* <div className="seasonings">
           <button>Spices</button>
           < MeatButton />
           < MeatButton />
           < MeatButton />
           < MeatButton />
-        </div>
+        </div> */}
       </div>
     </div>
   )
