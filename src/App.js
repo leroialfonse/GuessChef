@@ -20,8 +20,8 @@ function App() {
         </div>
         <h2>I have...</h2>
 
-        <div className="meats">
-          <button>Meats</button>
+        <div className="meat-card">
+          <button className='meatButton'>Meats</button>
           < MeatButton />
           < MeatButton />
           < MeatButton />

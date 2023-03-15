@@ -26,11 +26,48 @@
 
 }
 
+
+.contacts {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+/* .contact-card {
+  flex-basis: 225px;
+  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 13px;
+  padding-bottom: 20px;
+  background-color: white;
+} */
+
+.contact-card > img {
+  width: 100%;
+  height: auto;
+  align-self: center;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+.contact-card > h3 {
+  font-weight: 700;
+  font-size: 18px;
+}
+
 .meats{
-  display:grid;
+  /* display:grid;
   grid-template-columns: 25% 25%  25% 25%;
   grid-template-rows:    60% 60% 60% 60%;
-  padding: 3em;
+  padding: 3em; */
+
+  display: flex;
+  justify-content: center;
+  /* flex-wrap: wrap; */
+  gap: 2rem;
 }
 
 
@@ -47,13 +84,29 @@
   grid-template-rows:    60% 60% 60% 60%;
   padding: 3em;
 }
+
+.meat-card {
+  flex-basis: 225px;
+  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 13px;
+  padding-bottom: 20px;
+  background-color: transparent;
+}
+
 .meatButton{
   border: 3px solid maroon;
   background-color: transparent;
   border-radius: 45%;
   min-height: 3rem;
   margin: 10px;
+  font-weight: 700;
+  color: maroon;
 }
+
+
 
 .veggieButton{
   border: 3px solid green;

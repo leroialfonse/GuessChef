@@ -3,7 +3,7 @@ import { faCow } from '@fortawesome/free-solid-svg-icons';
 import { faBacon } from '@fortawesome/free-solid-svg-icons'
 export default function MeatButton() {
   return (
-    <div>
+    <div meat-card>
       <FontAwesomeIcon onClick={toggle} icon={faCow} size="6x" />
       {/* <h3>Mr. Whiskerson</h3> */}
       {/* <div className="info-group">
