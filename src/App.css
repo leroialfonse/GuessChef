@@ -35,12 +35,15 @@ body{
   }
   
 .cards-list {
-  display: flex;
-  flex-direction: row;
+  /* display: flex;
+  flex-direction: row; */
   /* margin-top: 80px; */
   gap: 6px;
   margin: 3rem 2rem;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
+  padding: 5rem;
+  display: grid;
+  grid: auto-flow / 1fr 1fr 1fr 1fr 1fr;
   
 }
 
@@ -52,9 +55,14 @@ body{
   /* margin-right: 20px; */
 }
 
-.card--ingredient{
-  margin-top: -7px;
+.image:hover{
+  border:#12bd1e;
+  border-style: inset;
 }
+
+/* .card--ingredient{
+  margin-top: -7px;
+} */
 /* 
 .card--locale{
  margin-right: 12px; 
@@ -92,4 +100,8 @@ body{
 }
 
 
+.info{
+margin: 0;
+padding: 3rem 3rem 0 3rem;
 
+}

@@ -60,9 +60,41 @@ const trips =
         {
 
             id: 8,
-            ingredient: 'Tomato',
+            ingredient: 'Rosemary',
             // description: "The Bean, a very popular tourist destination, is actually called Cloud Gate. A huge outdoor sculpture shaped like a bean & allowing for views from its many mirrored sides.",
-            imageUrl: "tomatoPaste.jpg",
+            imageUrl: "rosemaryHerb.jpg",
+            // likes: 0
+        },
+        {
+
+            id: 8,
+            ingredient: 'fish',
+            // description: "The Bean, a very popular tourist destination, is actually called Cloud Gate. A huge outdoor sculpture shaped like a bean & allowing for views from its many mirrored sides.",
+            imageUrl: "rawFish.jpg",
+            // likes: 0
+        },
+        {
+
+            id: 9,
+            ingredient: 'pineapple',
+            // description: "The Bean, a very popular tourist destination, is actually called Cloud Gate. A huge outdoor sculpture shaped like a bean & allowing for views from its many mirrored sides.",
+            imageUrl: "pineappleSliced.jpg",
+            // likes: 0
+        },
+        {
+
+            id: 10,
+            ingredient: 'potato',
+            // description: "The Bean, a very popular tourist destination, is actually called Cloud Gate. A huge outdoor sculpture shaped like a bean & allowing for views from its many mirrored sides.",
+            imageUrl: "potatoesRus.jpg",
+            // likes: 0
+        },
+        {
+
+            id: 11,
+            ingredient: 'thyme',
+            // description: "The Bean, a very popular tourist destination, is actually called Cloud Gate. A huge outdoor sculpture shaped like a bean & allowing for views from its many mirrored sides.",
+            imageUrl: "thymeHerb.jpg",
             // likes: 0
         },
 

@@ -13,13 +13,14 @@ function App() {
   // ingredientsGeneral = keyIndex(ingredientsGeneral, 1)
   const cards = ingredientsGeneral.map(ing => {
     return (
-      <Card
-        key={ing.id}
-        ingredient={ing.ingredient}
-        description={ing.description}
-        img={ing.imageUrl}
-      />
-
+      <>
+        <Card
+          key={ing.id}
+          ingredient={ing.ingredient}
+          description={ing.description}
+          img={ing.imageUrl}
+        />
+      </>
     )
   })
 
