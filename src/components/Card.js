@@ -1,12 +1,17 @@
 import React from "react"
 
+
+function addToRecipe() {
+    alert('Added!')
+}
+
 function Card(props) {
 
 
     return (
         <div className="card">
             <div>
-                <img className="image" src={`./images/${props.img}`} />
+                <img className="image" src={`./images/${props.img}`} onClick={addToRecipe} />
                 <h2 className="card--ingredient">{props.ingredient}</h2>
 
             </div>
