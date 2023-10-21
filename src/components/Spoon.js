@@ -121,6 +121,7 @@ const Spoon = () => {
 
         </form>
 
+{ data.image }, { data.title }
 
     )
 }
