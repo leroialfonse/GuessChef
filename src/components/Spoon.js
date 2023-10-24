@@ -70,7 +70,9 @@ import React, { useState } from 'react';
 
 const Spoon = () => {
 
+    const [recipe, setRecipe] = useState({})
     const [ingredient, setIngredient] = useState('')
+
     // const [password, setPassword] = useState('')
 
     // What to do when the login form button is clicked.
@@ -92,37 +94,33 @@ const Spoon = () => {
 
         const data = await response.json()
 
-        console.log(data.image)
-        return (
-            <div>
-                {data.image}, {data.title},
-            </div>
-        )
+        console.log(data)
+
     }
 
 
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input type='text'
-                placeholder='ingredient'
-                value={ingredient}
-                onChange={(e) => setIngredient(e.target.value)}
+        <>
+            <form onSubmit={handleSubmit}>
+                <input type='text'
+                    placeholder='ingredient'
+                    value={ingredient}
+                    onChange={(e) => setIngredient(e.target.value)}
 
-            />
-            {/* <input type='password'
+                />
+                {/* <input type='password'
                 placeholder='Password'
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
 
             /> */}
 
-            <button type='submit'>search</button>
+                <button type='submit'>search</button>
 
-        </form>
-
-{ data.image }, { data.title }
-
+            </form>
+            <div>{data}</div>
+        </>
     )
 }
 
