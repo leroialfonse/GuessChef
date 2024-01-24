@@ -1,7 +1,12 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-// import { Link } from 'react-router-dom';
+import {
+    BroserRouter as ROuter,
+    Switch,
+    Route,
+    Link
+} from 'react-router-dom';
 
 
 
@@ -94,7 +99,7 @@ const Spoon = () => {
                         <Card.Text>
                             <p>{info.analyzedItructions}</p>
                         </Card.Text>
-                        {/* <Link to={`https://api.spoonacular.com/recipes/${info.id}/information?apiKey=8150e43b22914ff0ab67ee2af6bb4338`}>Let's Make It</Link> */}
+                        <Link to={`https://api.spoonacular.com/recipes/${info.id}/information?apiKey=8150e43b22914ff0ab67ee2af6bb4338`}>Let's Make It</Link>
                         <Button variant="primary"  >Let's Make It!</Button>
                     </Card.Body>
                 </Card >
