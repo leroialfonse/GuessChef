@@ -10,7 +10,8 @@ const RECIPES = [
 function Spoons() {
     const recipesQuery = useQuery({
         queryKey: ["posts"],
-        queryFn: () => wait(1000).then(() => [...RECIPES])
+        queryFn: () => wait(1000).then(() => fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=ad25a893b45f4e808dc312fa5cf225fa&addRecipeInformation=true&instructionsRequired=true&query`)
+            .then(res => res.json()))
     })
 
     if (recipesQuery.isLoading) return <h1>Loadin...</h1>
