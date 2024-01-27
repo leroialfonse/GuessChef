@@ -10,7 +10,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <QueryClientProvider client={queryClient} >
     <App />
-    <ReactQueryDevtools initialIsOpen={false} />
+    <ReactQueryDevtools />
   </QueryClientProvider>
 
 );
