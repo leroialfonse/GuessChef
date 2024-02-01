@@ -5,8 +5,8 @@ import './App.css'
 // // import keyIndex from "react-key-index"
 
 // import Header from "./components/Header";
-// import Spoon from './components/Spoon';
-import Spoons from './components/Spoons';
+import Spoon from './components/Spoon';
+// import Spoons from './components/Spoons';
 // import Info from './components/Info';
 
 
@@ -18,8 +18,8 @@ function App() {
       {/* <Header /> */}
       {/* <div className='info'> */}
       {/* <Info /> */}
-      {/* <Spoon /> */}
-      <Spoons />
+      <Spoon />
+      {/* <Spoons /> */}
       {/* </div> */}
     </>
   )
