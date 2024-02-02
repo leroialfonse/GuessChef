@@ -18,8 +18,11 @@ function App() {
       {/* <Header /> */}
       {/* <div className='info'> */}
       {/* <Info /> */}
-      <Spoon />
-      {/* <Spoons /> */}
+      <div className='info'>
+        <Spoon />
+
+        {/* <Spoons /> */}
+      </div>
       {/* </div> */}
     </>
   )
