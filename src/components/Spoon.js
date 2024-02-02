@@ -61,14 +61,14 @@ const Spoon = () => {
 
     // StarWars API.
     const [starWarsData, setStarWarsData] = React.useState({})
-
+    const [count, setCount] = React.useState(1)
 
     console.log("Component renders...")
     React.useEffect(() => {
-        fetch("https://swapi.dev/api/people/1")
+        fetch(`https://swapi.dev/api/people/${count}`)
             .then(res => res.json())
             .then(data => setStarWarsData(data))
-    }, [])
+    }, [count])
 
 
     // React.useEffect(() => {
@@ -131,7 +131,7 @@ const Spoon = () => {
 
         <>
             <h1>old useEffect call here.</h1>
-
+            <button onClick={() => setCount(prevCount => prevCount + 1)}>Advance.</button>
             {/* <form onSubmit={handleSubmit}>
        
                 <input type='text' name='userInput' onChange={handleChange} placeholder='sugar, cinnamon, cardamom...'></input>
@@ -139,7 +139,7 @@ const Spoon = () => {
             </form> */}
             {/* <pre>{JSON.stringify(recipeData, null, 2)}</pre> */}
             <pre>{JSON.stringify(starWarsData, null, 2)}</pre>
-
+            <h1>{starWarsData.name}</h1>
         </>
 
     )
