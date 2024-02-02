@@ -56,18 +56,22 @@ const Spoon = () => {
     //     return new Promise(resolve => setTimeout(resolve, duration))
     // }
 
-    // const [recipeData, setRecipeData] = React.useState([])
-    // const [userInput, setUserInput] = React.useState('')
 
     // StarWars API.
     const [starWarsData, setStarWarsData] = React.useState({})
+    // const [recipeData, setRecipeData] = React.useState([])
+
     const [count, setCount] = React.useState(1)
+    const [userInput, setUserInput] = React.useState('')
 
     console.log("Component renders...")
     React.useEffect(() => {
-        fetch(`https://swapi.dev/api/people/${count}`)
+        // fetch(`https://swapi.dev/api/people/${count}`)
+        // fetch(`https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&number=3&ingredients=${userInput}&apiKey=350ed6a1f4c84c85ba247a1161be2077`)
+
+        fetch(`https://api.spoonacular.com/recipes/complexSearch?query=ingredients=${userInput}&addRecipeInformation=true&number=1&apiKey=ad25a893b45f4e808dc312fa5cf225fa`)
             .then(res => res.json())
-            .then(data => setStarWarsData(data))
+            .then(data => setStarWarsData(data.results))
     }, [count])
 
 
@@ -131,7 +135,11 @@ const Spoon = () => {
 
         <>
             <h1>old useEffect call here.</h1>
-            <button onClick={() => setCount(prevCount => prevCount + 1)}>Advance.</button>
+            <form >
+                <input type='text' placeholder='Search for an Ing.' />
+                <button onClick={() => setCount(prevCount => prevCount + 1)}>Advance.</button>
+
+            </form>
             {/* <form onSubmit={handleSubmit}>
        
                 <input type='text' name='userInput' onChange={handleChange} placeholder='sugar, cinnamon, cardamom...'></input>
@@ -139,7 +147,7 @@ const Spoon = () => {
             </form> */}
             {/* <pre>{JSON.stringify(recipeData, null, 2)}</pre> */}
             <pre>{JSON.stringify(starWarsData, null, 2)}</pre>
-            <h1>{starWarsData.name}</h1>
+            <h1>{starWarsData.glutenFree}</h1>
         </>
 
     )
