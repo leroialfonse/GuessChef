@@ -61,21 +61,25 @@ const Spoon = () => {
 
 
     // StarWars API.
-    const [starWarsData, setStarWarsData] = React.useState({})
+    const [starWarsData, setStarWarsData] = React.useState([])
     // const [recipeData, setRecipeData] = React.useState([])
 
-    const [count, setCount] = React.useState(1)
+    // const [count, setCount] = React.useState(1)
     const [userInput, setUserInput] = React.useState('')
 
-    console.log("Component renders...")
     React.useEffect(() => {
+        console.log("Component renders...")
+
         // fetch(`https://swapi.dev/api/people/${count}`)
         // fetch(`https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&number=3&ingredients=${userInput}&apiKey=350ed6a1f4c84c85ba247a1161be2077`)
 
-        fetch(`https://api.spoonacular.com/recipes/complexSearch?query=ingredients=${userInput}&addRecipeInformation=true&number=1&apiKey=ad25a893b45f4e808dc312fa5cf225fa`)
+        // fetch(`https://api.spoonacular.com/recipes/complexSearch?query=ingredients=${userInput}&addRecipeInformation=true&number=1&apiKey=ad25a893b45f4e808dc312fa5cf225fa`)
+
+        // Just finding recipes by ingredient, first. This one is a rigormortonson pull, I think.
+        fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${userInput}&apiKey=ad25a893b45f4e808dc312fa5cf225fa`)
             .then(res => res.json())
-            .then(data => setStarWarsData(data.results))
-    }, [count])
+            .then(json => console.log(json))
+    }, [userInput])
 
 
     // React.useEffect(() => {
@@ -117,31 +121,27 @@ const Spoon = () => {
 
 
 
-    // function handleChange(event) {
-    //     setUserInput(event.target.value)
+    function handleChange(event) {
+        setUserInput(event.target.value)
 
 
-    // }
+    }
 
-    // function handleSubmit(event) {
-    //     // event.preventDefault()
-    //     const url = recipeData[userInput]
-    //     setRecipeData(prevRecipe => ({
-    //         ...prevRecipe,
-    //         newRecipe: url
-    //     }))
+    function handleSubmit(event) {
+        event.preventDefault()
 
-    // }
+
+
+    }
 
 
     return (
 
         <>
             <h1>old useEffect call here.</h1>
-            <form >
-                <input type='text' placeholder='Search for an Ing.' />
-                <button onClick={() => setCount(prevCount => prevCount + 1)}>Advance.</button>
-
+            <form onSubmit={handleSubmit}>
+                <input onChange={handleChange} type='text' placeholder='Search for an Ing.' />
+                <button>Get a recipe</button>
             </form>
             {/* <form onSubmit={handleSubmit}>
        
@@ -150,7 +150,7 @@ const Spoon = () => {
             </form> */}
             {/* <pre>{JSON.stringify(recipeData, null, 2)}</pre> */}
             <pre>{JSON.stringify(starWarsData, null, 2)}</pre>
-            <h1>{starWarsData.glutenFree}</h1>
+            <h1>{starWarsData}</h1>
         </>
 
     )
