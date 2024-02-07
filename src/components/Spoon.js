@@ -61,8 +61,8 @@ const Spoon = () => {
 
 
     // StarWars API.
-    const [starWarsData, setStarWarsData] = React.useState([])
-    // const [recipeData, setRecipeData] = React.useState([])
+    // const [starWarsData, setStarWarsData] = React.useState([])
+    const [recipeData, setRecipeData] = React.useState([])
 
     // const [count, setCount] = React.useState(1)
     const [userInput, setUserInput] = React.useState('')
@@ -78,7 +78,10 @@ const Spoon = () => {
         // Just finding recipes by ingredient, first. This one is a rigormortonson pull, I think.
         fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${userInput}&apiKey=ad25a893b45f4e808dc312fa5cf225fa`)
             .then(res => res.json())
-            .then(json => console.log(json))
+            .then(data => {
+                console.log(data)
+                setRecipeData(data)
+            })
     }, [userInput])
 
 
@@ -148,9 +151,19 @@ const Spoon = () => {
                 <input type='text' name='userInput' onChange={handleChange} placeholder='sugar, cinnamon, cardamom...'></input>
                 <button>Search!</button>
             </form> */}
-            {/* <pre>{JSON.stringify(recipeData, null, 2)}</pre> */}
-            <pre>{JSON.stringify(starWarsData, null, 2)}</pre>
-            <h1>{starWarsData}</h1>
+            {/* <pre>{JSON.stringify(recipeData, null, 1)}</pre> */}
+            {/* <pre>{JSON.stringify(starWarsData, null, 2)}</pre> */}
+            {recipeData.map(results => <div>
+                <div className="card">
+                    {/* <img src="assets/images/bs-images/img-2x1.png" className="card-img-top" alt="card-img-top"> */}
+                    <div className="card-body">
+                        <h5 className="card-title">{results.title}</h5>
+                        <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
+                    </div>
+                </div>
+
+            </div>)}
         </>
 
     )
