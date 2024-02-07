@@ -105,3 +105,11 @@ margin: 0;
 padding: 3rem 3rem 0 3rem;
 
 }
+
+
+.card{
+  width: 40%;
+  border: 2px solid purple;
+  display: flex;
+  margin: 20px;
+}
