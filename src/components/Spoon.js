@@ -80,10 +80,19 @@ const Spoon = () => {
 
         // fetch(`https://api.spoonacular.com/recipes/complexSearch?query=ingredients=${userInput}&addRecipeInformation=true&number=1&apiKey=ad25a893b45f4e808dc312fa5cf225fa`)
 
-        // Just finding recipes by ingredient, first. This one is a rigormortonson pull, I think.
-        // fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${userInput}&number=3&instructionsRequired=true&apiKey=ad25a893b45f4e808dc312fa5cf225fa`)
-        fetch(`https://api.spoonacular.com/recipes/complexSearch?includeIngredients=${userInput}&number=3&instructionsRequired=true&apiKey=ad25a893b45f4e808dc312fa5cf225fa`)
 
+        // cURRENTLY PULLING THIS ONE...
+        // Just finding recipes by ingredient, first. This one is a rigormortonson pull, I think.
+        // fetch(`https://api.spoonacular.com/recipes/findByIngredients?instructionsRequired=true&ingredients=${userInput}&number=1&apiKey=ad25a893b45f4e808dc312fa5cf225fa`)
+
+        // Let me try to get the instrucutions directly with this call. 
+        fetch(`https://api.spoonacular.com/recipes/404784/analyzedInstuctions&apiKey=ad25a893b45f4e808dc312fa5cf225fa`)
+
+
+            // fetch(`https://api.spoonacular.com/recipes/complexSearch?includeIngredients=${userInput}&number=3&instructionsRequired=true&apiKey=ad25a893b45f4e808dc312fa5cf225fa`)
+
+            // The analyzeInstructions call? How do I get the id for the recipe I looked for here...?
+            // let instructionsList = fetch(`https://api.spoonacular.com/recipes/${id}/analyzedInstructions&ingredients=${userInput}&number=1&apiKey=ad25a893b45f4e808dc312fa5cf225fa`)
             .then(res => res.json())
             .then(data => {
                 console.log(data)
@@ -186,6 +195,15 @@ const Spoon = () => {
     }
 
 
+
+    // function getInstuctions() {
+    //     // let info = setRecipeData.id
+
+    //     fetch(`https://api.spoonacular.com/recipes/800780/analyzedInstructions&apiKey=ad25a893b45f4e808dc312fa5cf225fa`)
+    //         .then(res => res.json())
+    //         .then(data => console.log(data))
+    // }
+
     return (
 
         <>
@@ -201,18 +219,20 @@ const Spoon = () => {
             </form> */}
             {/* <pre>{JSON.stringify(recipeData, null, 1)}</pre> */}
             {/* <pre>{JSON.stringify(starWarsData, null, 2)}</pre> */}
-            {!userInput ? <p>type above to get started!</p> : <pre> {recipeData.results.map(results =>
+            {/* {!userInput ? <p>type above to get started!</p> : <pre> {recipeData.map(results =>
                 <div className="card">
                     <img src={results.image} className="card-img-top" alt="card-img-top" />
                     <div className="card-body">
                         <h5 className="card-title">{results.title}</h5>
-                        <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        <p className="card-text">{results.summary}</p>
                         <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
-                        <button> Let's make it !</button>
+                        <button
+                        // onClick={getInstuctions}
+                        > Let's make it !</button>
                     </div>
 
 
-                </div>)}</pre>}
+                </div>)}</pre>} */}
         </>
 
     )
