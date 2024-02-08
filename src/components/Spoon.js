@@ -1,4 +1,8 @@
 import React from 'react';
+
+// Using react hook form... maybe.
+// import { useForm } from "react-hook-form"
+
 // Create a component  called loading screen, to trigger when we're waiting for result.
 
 // import LoadingScreen from './LoadingScreen';
@@ -63,6 +67,7 @@ const Spoon = () => {
     // StarWars API.
     // const [starWarsData, setStarWarsData] = React.useState([])
     const [recipeData, setRecipeData] = React.useState([])
+    // const [recipeInstructions, setRecipeInstructions] = React.useState()
 
     // const [count, setCount] = React.useState(1)
     const [userInput, setUserInput] = React.useState('')
@@ -76,7 +81,9 @@ const Spoon = () => {
         // fetch(`https://api.spoonacular.com/recipes/complexSearch?query=ingredients=${userInput}&addRecipeInformation=true&number=1&apiKey=ad25a893b45f4e808dc312fa5cf225fa`)
 
         // Just finding recipes by ingredient, first. This one is a rigormortonson pull, I think.
-        fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${userInput}&number=3&instructionsRequired=true&apiKey=ad25a893b45f4e808dc312fa5cf225fa`)
+        // fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${userInput}&number=3&instructionsRequired=true&apiKey=ad25a893b45f4e808dc312fa5cf225fa`)
+        fetch(`https://api.spoonacular.com/recipes/complexSearch?includeIngredients=${userInput}&number=3&instructionsRequired=true&apiKey=ad25a893b45f4e808dc312fa5cf225fa`)
+
             .then(res => res.json())
             .then(data => {
                 console.log(data)
@@ -84,6 +91,9 @@ const Spoon = () => {
             })
     }, [userInput])
 
+    // React.useEffect(() => {
+    //     console.log("Searching it up...")
+    // })
 
     // React.useEffect(() => {
 
@@ -121,7 +131,45 @@ const Spoon = () => {
 
 
 
+    // ///////////////////////////// Using react form hook
 
+
+
+    //     const {
+
+    //         ingredient
+    //     // register,
+    //         handleSubmit,
+    //         watch,
+    //         formState: { errors },
+    //     } = useForm()
+
+
+    //     const onSubmit = (data) => console.log(data)
+
+
+    //     console.log(watch("ingredient")) // watch input value by passing the name of it
+
+
+    //     return (
+    //         /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
+    //         <form onSubmit={handleSubmit(onSubmit)}>
+    //             {/* register your input into the hook by invoking the "register" function */}
+    //             <input defaultValue="sugar" {...register("example")} />
+
+
+    //             {/* include validation with required or other standard HTML validation rules */}
+    //             <input {...register("exampleRequired", { required: true })} />
+    //             {/* errors will return when field validation fails  */}
+    //             {errors.exampleRequired && <span>This field is required</span>}
+
+
+    //             <input type="submit" />
+    //         </form>
+    //     )
+    // }
+
+    // //////////////////////////////////// End using react form hook.
 
 
     function handleChange(event) {
@@ -151,19 +199,20 @@ const Spoon = () => {
                 <input type='text' name='userInput' onChange={handleChange} placeholder='sugar, cinnamon, cardamom...'></input>
                 <button>Search!</button>
             </form> */}
-            <pre>{JSON.stringify(recipeData, null, 1)}</pre>
+            {/* <pre>{JSON.stringify(recipeData, null, 1)}</pre> */}
             {/* <pre>{JSON.stringify(starWarsData, null, 2)}</pre> */}
-            {/* {recipeData.map(results =>
+            {!userInput ? <p>type above to get started!</p> : <pre> {recipeData.results.map(results =>
                 <div className="card">
                     <img src={results.image} className="card-img-top" alt="card-img-top" />
                     <div className="card-body">
                         <h5 className="card-title">{results.title}</h5>
                         <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                         <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
+                        <button> Let's make it !</button>
                     </div>
 
 
-                </div>)} */}
+                </div>)}</pre>}
         </>
 
     )

@@ -16,6 +16,11 @@ header{
 
 body{
   margin: 0;
+  background-image:url('/public/images/crossedCutlery.png') 20px/20px repeat 10px 10px,
+  url("/public/images/eggs.jpg") 20px/20px repeat 10px 10px;
+
+	/* background-repeat: 210px/230px repeat; */
+/* background-size: 60px 80px; */
 }
 
 
@@ -108,8 +113,12 @@ padding: 3rem 3rem 0 3rem;
 
 
 .card{
-  width: 40%;
+  /* width: 40%; */
   border: 2px solid purple;
+  border-radius: 8px;
+  box-shadow: 4px 4px 8px green;
   display: flex;
+  justify-self: center;
+  align-self: center;
   margin: 20px;
 }
