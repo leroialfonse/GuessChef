@@ -2,7 +2,7 @@ import React from 'react';
 
 
 // Let's set your API keys as variables, so that they'll be easier to use and reference, rather than typing them out all the time. These will be stored in your .env for security.
-// const apiKey1 =
+const apiKey1 = 'ad25a893b45f4e808dc312fa5cf225fa'
 
 // Using react hook form... maybe.
 // import { useForm } from "react-hook-form"
@@ -72,38 +72,69 @@ const Spoon = (props) => {
     // const [starWarsData, setStarWarsData] = React.useState([])
 
     // Some state for the recipe information.
-    const [recipeData, setRecipeData] = React.useState([])
+    const [recipeData, setRecipeData] = React.useState([]);
+    // Some state for the actual ingredients.
+    const [ingredients, setIngredients] = React.useState([]);
+
+    // And a bit of state for loading delays.
+    const [isLoading, setIsLoading] = React.useState(false)
     // const [recipeInstructions, setRecipeInstructions] = React.useState()
 
     // const [count, setCount] = React.useState(1)
     const [userInput, setUserInput] = React.useState('')
 
+
+    // Gonna try to use an async as suggested by my friend.
+
+    const getRecipe = async () => {
+
+        // Initialize the variabls that I need... 
+        let recipeInfo;
+        let ingredients;
+
+        // Set loading to true while data is fetched. 
+        setIsLoading(true)
+        // Fetch the recipe based on user Input. 
+        await fetch(`https://api.spoonacular.com/recipes/complexSearch?query=ingredients=${userInput}&number=1&apiKey=${apiKey1}`)
+            .then(res => {
+                recipeInfo = res.formData;
+                ingredients = res.formData.extendedIngredients;
+                setRecipeData(recipeInfo)
+                setIngredients(ingredients)
+                // Switch setIsLoading to False after the fetch.
+
+            })
+    }
+    // The UseEffect that I had working as of 2/29/24
     React.useEffect(() => {
         console.log("Component renders...")
 
-        // fetch(`https://swapi.dev/api/people/${count}`)
-        // fetch(`https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&number=3&ingredients=${userInput}&apiKey=350ed6a1f4c84c85ba247a1161be2077`)
+        // // fetch(`https://swapi.dev/api/people/${count}`)
+        // // fetch(`https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&number=3&ingredients=${userInput}&apiKey=350ed6a1f4c84c85ba247a1161be2077`)
 
-        // fetch(`https://api.spoonacular.com/recipes/complexSearch?query=ingredients=${userInput}&addRecipeInformation=true&number=1&apiKey=ad25a893b45f4e808dc312fa5cf225fa`)
-
-
-        // cURRENTLY PULLING THIS ONE...
-        // Just finding recipes by ingredient, first. This one is a rigormortonson pull, I think.
-        // fetch(`https://api.spoonacular.com/recipes/findByIngredients?instructionsRequired=true&ingredients=${userInput}&number=1&apiKey=ad25a893b45f4e808dc312fa5cf225fa`)
-
-        // Let me try to get the instrucutions directly with this call. 
-        fetch(`https://api.spoonacular.com/recipes/404784/analyzedInstuctions&apiKey=ad25a893b45f4e808dc312fa5cf225fa`)
+        // // fetch(`https://api.spoonacular.com/recipes/complexSearch?query=ingredients=${userInput}&addRecipeInformation=true&number=1&apiKey=ad25a893b45f4e808dc312fa5cf225fa`)
 
 
-            // fetch(`https://api.spoonacular.com/recipes/complexSearch?includeIngredients=${userInput}&number=3&instructionsRequired=true&apiKey=ad25a893b45f4e808dc312fa5cf225fa`)
+        // // cURRENTLY PULLING THIS ONE...
+        // // Just finding recipes by ingredient, first. This one is a rigormortonson pull, I think.
+        // // fetch(`https://api.spoonacular.com/recipes/findByIngredients?instructionsRequired=true&ingredients=${userInput}&number=1&apiKey=ad25a893b45f4e808dc312fa5cf225fa`)
 
-            // The analyzeInstructions call? How do I get the id for the recipe I looked for here...?
-            // let instructionsList = fetch(`https://api.spoonacular.com/recipes/${id}/analyzedInstructions&ingredients=${userInput}&number=1&apiKey=ad25a893b45f4e808dc312fa5cf225fa`)
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
-                setRecipeData(data)
-            })
+        // // Let me try to get the instrucutions directly with this call. 
+        // fetch(`https://api.spoonacular.com/recipes/404784/analyzedInstuctions&apiKey=ad25a893b45f4e808dc312fa5cf225fa`)
+
+
+        //     // fetch(`https://api.spoonacular.com/recipes/complexSearch?includeIngredients=${userInput}&number=3&instructionsRequired=true&apiKey=ad25a893b45f4e808dc312fa5cf225fa`)
+
+        //     // The analyzeInstructions call? How do I get the id for the recipe I looked for here...?
+        //     // let instructionsList = fetch(`https://api.spoonacular.com/recipes/${id}/analyzedInstructions&ingredients=${userInput}&number=1&apiKey=ad25a893b45f4e808dc312fa5cf225fa`)
+        //     .then(res => res.json())
+        //     .then(data => {
+        //         console.log(data)
+        //         setRecipeData(data)
+        //     })
+
+        // And the call to get the recipe information.
+        getRecipe()
     }, [userInput])
 
     // React.useEffect(() => {
@@ -214,6 +245,9 @@ const Spoon = (props) => {
 
         <>
             <h1>old useEffect call here.</h1>
+            {/* show the loading message until some data is resolved, bud. */}
+
+            {!isLoading ? <recipeInfo recipe={recipeData} ingredients={ingredients} /> : < h1 style={{ textAlign: 'center' }}>Loading.....</h1>}
             <form onSubmit={handleSubmit}>
                 <input onChange={handleChange} type='text' placeholder='Search for an Ing.' />
                 <button>Get a recipe</button>
