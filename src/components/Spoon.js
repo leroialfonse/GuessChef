@@ -1,5 +1,9 @@
 import React from 'react';
 
+
+// Let's set your API keys as variables, so that they'll be easier to use and reference, rather than typing them out all the time. These will be stored in your .env for security.
+// const apiKey1 =
+
 // Using react hook form... maybe.
 // import { useForm } from "react-hook-form"
 
@@ -20,7 +24,7 @@ import React from 'react';
 
 
 
-const Spoon = () => {
+const Spoon = (props) => {
 
 
     // The function that will be the "useEffect", it goes into the external API to get the data. 
@@ -66,6 +70,8 @@ const Spoon = () => {
 
     // StarWars API.
     // const [starWarsData, setStarWarsData] = React.useState([])
+
+    // Some state for the recipe information.
     const [recipeData, setRecipeData] = React.useState([])
     // const [recipeInstructions, setRecipeInstructions] = React.useState()
 
