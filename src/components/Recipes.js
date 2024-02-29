@@ -5,6 +5,7 @@ import '../App.css';
 
 
 const apiKey = '350ed6a1f4c84c85ba247a1161be2077'
+// Got all my api keys just in the open. SMH.
 
 const Recipes = () => {
     // create functional state
