@@ -3,6 +3,7 @@ import React from 'react';
 
 // Let's set your API keys as variables, so that they'll be easier to use and reference, rather than typing them out all the time. These will be stored in your .env for security.
 const apiKey1 = 'ad25a893b45f4e808dc312fa5cf225fa'
+const apiKey2 = '350ed6a1f4c84c85ba247a1161be2077'
 
 // Using react hook form... maybe.
 // import { useForm } from "react-hook-form"
@@ -86,29 +87,33 @@ const Spoon = (props) => {
 
     // Gonna try to use an async as suggested by my friend.
 
-    const getRecipe = async () => {
 
-        // Initialize the variabls that I need... 
-        let recipeInfo;
-        let ingredients;
-
-        // Set loading to true while data is fetched. 
-        setIsLoading(true)
-        // Fetch the recipe based on user Input. 
-        await fetch(`https://api.spoonacular.com/recipes/complexSearch?query=ingredients=${userInput}&number=1&apiKey=${apiKey1}`)
-            .then(res => {
-                recipeInfo = res.formData;
-                ingredients = res.formData.extendedIngredients;
-                setRecipeData(recipeInfo)
-                setIngredients(ingredients)
-                // Switch setIsLoading to False after the fetch.
-
-            })
-    }
     // The UseEffect that I had working as of 2/29/24
     React.useEffect(() => {
         console.log("Component renders...")
 
+        const getRecipe = () => {
+
+            // Initialize the variabls that I need... 
+            let recipeInfo;
+            let ingredients;
+
+            // Set loading to true while data is fetched. 
+            setIsLoading(true)
+            // Fetch the recipe based on user Input. 
+            fetch(`https://api.spoonacular.com/recipes/complexSearch?query=ingredients=${userInput}&number=1&apiKey=${apiKey2}`)
+
+                // await fetch(`https://api.spoonacular.com/recipes/complexSearch?query=ingredients=${userInput}&number=1&apiKey=${apiKey1}`)
+                .then(res => {
+                    recipeInfo = res.data;
+                    console.log(res.data)
+                    // ingredients = res.data.extendedIngredients;
+                    setRecipeData(res.data)
+                    setIngredients(ingredients)
+                    // Switch setIsLoading to False after the fetch.
+
+                })
+        }
         // // fetch(`https://swapi.dev/api/people/${count}`)
         // // fetch(`https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&number=3&ingredients=${userInput}&apiKey=350ed6a1f4c84c85ba247a1161be2077`)
 
@@ -132,6 +137,7 @@ const Spoon = (props) => {
         //         console.log(data)
         //         setRecipeData(data)
         //     })
+        // getRecipe()
 
         // And the call to get the recipe information.
         getRecipe()
@@ -247,7 +253,7 @@ const Spoon = (props) => {
             <h1>old useEffect call here.</h1>
             {/* show the loading message until some data is resolved, bud. */}
 
-            {!isLoading ? <recipeInfo recipe={recipeData} ingredients={ingredients} /> : < h1 style={{ textAlign: 'center' }}>Loading.....</h1>}
+            {!isLoading ? <div> recipe={recipeData} ingredients={ingredients} </div> : < h1 style={{ textAlign: 'center' }}>Loading.....</h1>}
             <form onSubmit={handleSubmit}>
                 <input onChange={handleChange} type='text' placeholder='Search for an Ing.' />
                 <button>Get a recipe</button>
@@ -257,7 +263,7 @@ const Spoon = (props) => {
                 <input type='text' name='userInput' onChange={handleChange} placeholder='sugar, cinnamon, cardamom...'></input>
                 <button>Search!</button>
             </form> */}
-            {/* <pre>{JSON.stringify(recipeData, null, 1)}</pre> */}
+            <pre>{JSON.stringify(recipeData, null, 1)}</pre>
             {/* <pre>{JSON.stringify(starWarsData, null, 2)}</pre> */}
             {/* {!userInput ? <p>type above to get started!</p> : <pre> {recipeData.map(results =>
                 <div className="card">
