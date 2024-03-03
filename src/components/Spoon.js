@@ -3,7 +3,7 @@ import React from 'react';
 
 // Let's set your API keys as variables, so that they'll be easier to use and reference, rather than typing them out all the time. These will be stored in your .env for security.
 const apiKey1 = 'ad25a893b45f4e808dc312fa5cf225fa'
-const apiKey2 = '350ed6a1f4c84c85ba247a1161be2077'
+const apiKey2 = '0c6f59cdf5a4473cabde95a3bf90adce'
 
 // Using react hook form... maybe.
 // import { useForm } from "react-hook-form"
@@ -101,16 +101,18 @@ const Spoon = (props) => {
             // Set loading to true while data is fetched. 
             setIsLoading(true)
             // Fetch the recipe based on user Input. 
-            fetch(`https://api.spoonacular.com/recipes/complexSearch?query=ingredients=${userInput}&number=1&apiKey=${apiKey2}`)
-
+            // fetch(`https://api.spoonacular.com/recipes/complexSearch?query=${userInput}&number=1&apiKey=${apiKey2}`)
+            fetch(`           https://api.spoonacular.com/recipes/findByIngredients?ingredients=sugar&apiKey=${apiKey2}&number=1`)
                 // await fetch(`https://api.spoonacular.com/recipes/complexSearch?query=ingredients=${userInput}&number=1&apiKey=${apiKey1}`)
                 .then(res => {
-                    recipeInfo = res.data;
-                    console.log(res.data)
-                    // ingredients = res.data.extendedIngredients;
-                    setRecipeData(res.data)
-                    setIngredients(ingredients)
-                    // Switch setIsLoading to False after the fetch.
+                    res.json()
+                        .then(data => console.log(data))
+                    // recipeInfo = res.data;
+                    // console.log(res.data)
+                    // // ingredients = res.data.extendedIngredients;
+                    // setRecipeData(res.data)
+                    // setIngredients(ingredients)
+                    // // Switch setIsLoading to False after the fetch.
 
                 })
         }

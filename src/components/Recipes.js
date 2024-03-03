@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 // import axios from 'axios';
 import RecipeItem from './RecipeItem';
-import '../App.css';
+import '../index.css';
 
 
 const apiKey = '350ed6a1f4c84c85ba247a1161be2077'
@@ -19,8 +19,12 @@ const Recipes = () => {
         //Initialize variable so value assigned is done each get
         let recipes;
         //Make get request using axios with query state object
-        fetch(`https://api.spoonacular.com/recipes/search?apiKey=350ed6a1f4c84c85ba247a1161be2077&query=${query}&instructionsRequired=true&number=6`)
+        // fetch(`https://api.spoonacular.com/recipes/search?apiKey=350ed6a1f4c84c85ba247a1161be2077&query=${query}&instructionsRequired=true&number=6`)
+        fetch(`https://api.spoonacular.com/recipes/search?apiKey=ad25a893b45f4e808dc312fa5cf225fa&query=${query}&instructionsRequired=true&number=6`)
+
+            // ad25a893b45f4e808dc312fa5cf225fa
             .then(res => {
+                res.json()
                 console.log(res)
                 //Assign response value to variable
                 recipes = res.data
@@ -42,9 +46,9 @@ const Recipes = () => {
                 </form>
             </div>
             <div>
-                {recipes.map((rec) => (
+                {/* {recipes.map((rec) => (
                     <RecipeItem key={rec.id} obj={rec} />
-                ))}
+                ))} */}
             </div>
         </div>
     );
