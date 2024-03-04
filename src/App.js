@@ -6,7 +6,7 @@ import './index.css'
 
 // import Header from "./components/Header";
 import Spoon from './components/Spoon';
-import Recipes from './components/Recipes';
+// import Recipes from './components/Recipes';
 // import Spoons from './components/Spoons';
 // import Info from './components/Info';
 
@@ -51,6 +51,7 @@ function App() {
       <div className='info'>
         {/* <Recipes /> */}
         <Spoon />
+
         {/* <Spoons /> */}
       </div>
       {/* </div> */}
