@@ -313,6 +313,19 @@ const Spoon = () => {
     // create functional state
     const [userInput, setUserInput] = useState('');
     const [recipeData, setRecipeData] = useState([]);
+    const [instructionsId, setInstructionsId] = React.useState([])
+
+    //     const endpointCalls = [`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${userInput}&apiKey=${apiKey1}&instructionsRequired=true&number=1`, `https://api.spoonacular.com/recipes/${recipeData[0].id}/analyzedInstructions$apiKey=${apiKey1}`]
+
+    //     const fetchPromises = endpointCalls.map( endpoint => fetch(endpoint))
+
+
+    // Promise.all(fetchPromises) 
+    // .then( response => Promise.all(response.map(response => 
+    //     response.json())))
+    //     .then(data => {
+    //         let notes = setInstructions( endpointCalls[0].id)
+    //     })
 
     // GET REQUEST TO RECIEVE RECIPES
     const getRecipes = async (e) => {
@@ -321,15 +334,33 @@ const Spoon = () => {
         //Initialize variable so value assigned is done each get
         // let recipes;
         //Make get request using axios with query state object
-        fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${userInput}&apiKey=${apiKey1}&number=1`)
+        fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${userInput}&apiKey=${apiKey1}&instructionsRequired=true&number=1`)
             .then(res => res.json())
             .then(data => {
-                console.log(data)
+                setInstructionsId(data[0].id)
+                // console.log(data)
                 //Assign response value to variable
                 //Set response to recipes state
                 setRecipeData(data)
             })
 
+    }
+
+
+    // Pull those actual instructions.
+    const getInstructions = (e) => {
+        // Prevent default submit action bahh this drove me crazy for a little 
+        e.preventDefault();
+        //Initialize variable so value assigned is done each get
+        // let recipeData;
+        //Make get request using axios with query state object
+        // fetch(`https://api.spoonacular.com/recipes/${instructionsId}/analyzedInstructions$apiKey=${apiKey1}`)
+        fetch(`https://api.spoonacular.com/recipes/324694/analyzedInstructions?apiKey=${apiKey1}`)
+            // axios.get(`https://api.spoonacular.com/recipes/search?apiKey=ad25a893b45f4e808dc312fa5cf225fa&query=${query}&instructionsRequired=true&number=6`)
+
+            // ad25a893b45f4e808dc312fa5cf225fa
+            .then(res => res.json())
+            .then(instructionData => console.log(instructionData))
     }
 
     return (
@@ -360,7 +391,8 @@ const Spoon = () => {
                             <h1>{info.id}</h1>
                             <h2>{info.title}</h2>
                             <img src={info.image} alt={info.title} />
-
+                            <button onClick={getInstructions}>Let's Make It!</button>
+                            <p></p>
                         </>
                     )
 
