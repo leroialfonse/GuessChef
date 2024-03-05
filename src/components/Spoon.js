@@ -304,9 +304,9 @@ import '../index.css';
 
 // Let's set your API keys as variables, so that they'll be easier to use and reference, rather than typing them out all the time. These will be stored in your .env for security.
 // bkw3key
-const apiKey1 = '3c5e4c07d493466d82b44cd7af5e3457'
+// const apiKey1 = '3c5e4c07d493466d82b44cd7af5e3457'
 // bwdev key
-// const apiKey2 = '0c6f59cdf5a4473cabde95a3bf90adce'
+const apiKey2 = '0c6f59cdf5a4473cabde95a3bf90adce'
 
 
 const Spoon = () => {
@@ -335,7 +335,7 @@ const Spoon = () => {
         //Initialize variable so value assigned is done each get
         // let recipes;
         //Make get request using axios with query state object
-        fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${userInput}&apiKey=${apiKey1}&instructionsRequired=true&number=1`)
+        fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${userInput}&apiKey=${apiKey2}&instructionsRequired=true&number=1`)
             .then(res => res.json())
             .then(data => {
                 setInstructionsId(data[0].id)
@@ -356,12 +356,15 @@ const Spoon = () => {
         // let recipeData;
         //Make get request using axios with query state object
         // fetch(`https://api.spoonacular.com/recipes/${instructionsId}/analyzedInstructions$apiKey=${apiKey1}`)
-        fetch(`https://api.spoonacular.com/recipes/${instructionsId}/analyzedInstructions?apiKey=${apiKey1}`)
+        fetch(`https://api.spoonacular.com/recipes/${instructionsId}/analyzedInstructions?apiKey=${apiKey2}`)
             // axios.get(`https://api.spoonacular.com/recipes/search?apiKey=ad25a893b45f4e808dc312fa5cf225fa&query=${query}&instructionsRequired=true&number=6`)
 
             // ad25a893b45f4e808dc312fa5cf225fa
             .then(res => res.json())
-            .then(instructionData => setInstructionsList(instructionData))
+            .then(instructionData => {
+                console.log(instructionData[0])
+                setInstructionsList(instructionData)
+            })
     }
 
     return (
@@ -393,10 +396,10 @@ const Spoon = () => {
                             <h2>{info.title}</h2>
                             <img src={info.image} alt={info.title} />
                             <button onClick={getInstructions}>Let's Make It!</button>
-                            {/* {instructionsList.steps.map(step => <ol>
-                                <li>{step}</li>
-                            </ol>)} */}
-                            <pre>{JSON.stringify(instructionsList, null, 6)}</pre>
+                            <div> {instructionsList.map(el => {
+                                return <p>{el.steps.map(item => item.step)} </p>
+                            })} </div>
+                            {/* <pre>{JSON.stringify(instructionsList, null, 3)}</pre> */}
                         </>
                     )
 
