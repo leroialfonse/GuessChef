@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const RecipeItem = (props) => {
     // Destructure values from props
-    const { id, title, servings, readyInMinutes, image } = props.obj;
+    const { id, title, image } = props.obj;
     return (
         <div>
             {/* card creation for each recipe */}
@@ -12,8 +12,8 @@ const RecipeItem = (props) => {
                 <div className="card-body" style={{ background: '#78909C', color: 'white' }}>
                     <h5>{title}</h5>
                     <div id='par-container' >
-                        <p style={parStyle}><span className="badge badge-light">Servings: {servings}</span></p>
-                        <p style={parStyle}><span className="badge badge-light">Cook Time: {readyInMinutes}</span></p>
+                        {/* <p style={parStyle}><span className="badge badge-light">Servings: {servings}</span></p> */}
+                        {/* <p style={parStyle}><span className="badge badge-light">Cook Time: {readyInMinutes}</span></p> */}
                     </div>
                     <img alt='dishes' style={{ height: '200px', width: '250px', border: '3px white solid' }} src={`https://spoonacular.com/recipeImages/${image}`} />
                 </div>
@@ -25,11 +25,11 @@ const RecipeItem = (props) => {
     )
 }
 
-const parStyle = {
-    display: 'inline-block',
-    marginLeft: '1em',
+// const parStyle = {
+//     display: 'inline-block',
+//     marginLeft: '1em',
 
-}
+// }
 const cardStyle = {
     boxShadow: '-3px 4px 3px 0px rgba(0,0,0,0.75)',
     width: '30%',

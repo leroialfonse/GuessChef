@@ -64,13 +64,13 @@
 
 //         //     const getRecipe = () => {
 
-//         //         // Initialize the variabls that I need... 
+//         //         // Initialize the variabls that I need...
 //         //         let recipeInfo;
 //         //         let ingredients;
 
-//         //         // Set loading to true while data is fetched. 
+//         //         // Set loading to true while data is fetched.
 //         //         setIsLoading(true)
-//         //         // Fetch the recipe based on user Input. 
+//         //         // Fetch the recipe based on user Input.
 //         //         // fetch(`https://api.spoonacular.com/recipes/complexSearch?query=${userInput}&number=1&apiKey=${apiKey2}`)
 //         //         fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${userInput}&apiKey=${apiKey1}&number=1`)
 //         //             // await fetch(`https://api.spoonacular.com/recipes/complexSearch?query=ingredients=${userInput}&number=1&apiKey=${apiKey1}`)
@@ -98,7 +98,7 @@
 //         //     // // Just finding recipes by ingredient, first. This one is a rigormortonson pull, I think.
 //         //     // // fetch(`https://api.spoonacular.com/recipes/findByIngredients?instructionsRequired=true&ingredients=${userInput}&number=1&apiKey=ad25a893b45f4e808dc312fa5cf225fa`)
 
-//         //     // // Let me try to get the instrucutions directly with this call. 
+//         //     // // Let me try to get the instrucutions directly with this call.
 //         //     // fetch(`https://api.spoonacular.com/recipes/404784/analyzedInstuctions&apiKey=ad25a893b45f4e808dc312fa5cf225fa`)
 
 
@@ -124,7 +124,7 @@
 
 //         // GET REQUEST TO RECIEVE RECIPES
 //         function getRecipes(e) {
-//             // Prevent default submit action bahh this drove me crazy for a little 
+//             // Prevent default submit action bahh this drove me crazy for a little
 //             e.preventDefault();
 //             //Initialize variable so value assigned is done each get
 //             let recipes;
@@ -298,7 +298,7 @@
 
 import React, { useState } from 'react';
 // import axios from 'axios';
-import RecipeItem from './RecipeItem';
+// import RecipeItem from './RecipeItem';
 import '../index.css';
 
 
@@ -316,17 +316,16 @@ const Spoon = () => {
 
     // GET REQUEST TO RECIEVE RECIPES
     const getRecipes = async (e) => {
-        // Prevent default submit action bahh this drove me crazy for a little 
+        // Prevent default submit action bahh this drove me crazy for a little
         e.preventDefault();
         //Initialize variable so value assigned is done each get
-        let recipes;
+        // let recipes;
         //Make get request using axios with query state object
         fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${userInput}&apiKey=${apiKey1}&number=1`)
             .then(res => res.json())
             .then(data => {
                 console.log(data)
                 //Assign response value to variable
-                // recipes = res.data.results;
                 //Set response to recipes state
                 setRecipeData(data)
             })
@@ -334,7 +333,7 @@ const Spoon = () => {
     }
 
     return (
-        <div className="App" style={{ textAlign: 'center' }}>
+        <>        <div className="App" style={{ textAlign: 'center' }}>
             <div style={{ marginTop: '15vh' }}>
                 <h1 style={fontStyle}>HAANGRY</h1>
                 {/* Pass in event as arg to preventDefault action of form submit */}
@@ -346,24 +345,39 @@ const Spoon = () => {
                 </form>
             </div>
             <div>
-                <pre>{JSON.stringify(recipeData, null, 1)}</pre>
-
-                {/* <pre>{(JSON.stringifyrecipeData, null, 1)}</pre> */}
-                {/* {recipes.map((rec) => (
-                    <RecipeItem key={rec.id} obj={rec} />
-                ))} */}
+                {/* {setRecipeData.map((rec) => ( */}
+                {/* <h1>{setRecipeData.title}</h1> */}
+                {/* ))} */}
+                {/* <RecipeItem key={recipeData.id} obj={recipeData} />
+                {recipeData.title} */}
             </div>
-        </div>
-    );
-}
+            <div>
+                {/* <pre>{JSON.stringify(recipeData, null, 1)}</pre> */}
 
+                {recipeData.map(info => {
+                    return (
+                        <>
+                            <h1>{info.id}</h1>
+                            <h2>{info.title}</h2>
+                            <img src={info.image} alt={info.title} />
+
+                        </>
+                    )
+
+                })}
+            </div>
+        </div >
+        </>
+    )
+
+}
 const btnStyle = {
     backgroundColor: '#19B5FE'
 }
 
 const fontStyle = {
     fontSize: '5em',
-    color: 'white',
+    color: 'green',
     letterSpacing: '5px',
     textShadow: '-2px 2px 1px rgba(150, 150, 150, 1)'
 }
