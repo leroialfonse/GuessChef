@@ -313,7 +313,8 @@ const Spoon = () => {
     // create functional state
     const [userInput, setUserInput] = useState('');
     const [recipeData, setRecipeData] = useState([]);
-    const [instructionsId, setInstructionsId] = React.useState([])
+    const [instructionsId, setInstructionsId] = React.useState([]);
+    const [instructionsList, setInstructionsList] = React.useState([]);
 
     //     const endpointCalls = [`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${userInput}&apiKey=${apiKey1}&instructionsRequired=true&number=1`, `https://api.spoonacular.com/recipes/${recipeData[0].id}/analyzedInstructions$apiKey=${apiKey1}`]
 
@@ -355,12 +356,12 @@ const Spoon = () => {
         // let recipeData;
         //Make get request using axios with query state object
         // fetch(`https://api.spoonacular.com/recipes/${instructionsId}/analyzedInstructions$apiKey=${apiKey1}`)
-        fetch(`https://api.spoonacular.com/recipes/324694/analyzedInstructions?apiKey=${apiKey1}`)
+        fetch(`https://api.spoonacular.com/recipes/${instructionsId}/analyzedInstructions?apiKey=${apiKey1}`)
             // axios.get(`https://api.spoonacular.com/recipes/search?apiKey=ad25a893b45f4e808dc312fa5cf225fa&query=${query}&instructionsRequired=true&number=6`)
 
             // ad25a893b45f4e808dc312fa5cf225fa
             .then(res => res.json())
-            .then(instructionData => console.log(instructionData))
+            .then(instructionData => setInstructionsList(instructionData))
     }
 
     return (
@@ -392,7 +393,10 @@ const Spoon = () => {
                             <h2>{info.title}</h2>
                             <img src={info.image} alt={info.title} />
                             <button onClick={getInstructions}>Let's Make It!</button>
-                            <p></p>
+                            {/* {instructionsList.steps.map(step => <ol>
+                                <li>{step}</li>
+                            </ol>)} */}
+                            <pre>{JSON.stringify(instructionsList, null, 6)}</pre>
                         </>
                     )
 
