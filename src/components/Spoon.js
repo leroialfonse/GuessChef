@@ -296,17 +296,17 @@
 
 
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 // import axios from 'axios';
 // import RecipeItem from './RecipeItem';
 import '../index.css';
-import { Card } from "bootstrap"
+import Card from "react-bootstrap/Card"
 
 // Let's set your API keys as variables, so that they'll be easier to use and reference, rather than typing them out all the time. These will be stored in your .env for security.
 // bkw3key
-const apiKey1 = '3c5e4c07d493466d82b44cd7af5e3457'
+// const apiKey1 = '3c5e4c07d493466d82b44cd7af5e3457'
 // bwdev key
-// const apiKey2 = '0c6f59cdf5a4473cabde95a3bf90adce'
+const apiKey2 = '0c6f59cdf5a4473cabde95a3bf90adce'
 
 
 const Spoon = () => {
@@ -330,16 +330,18 @@ const Spoon = () => {
 
     // GET REQUEST TO RECIEVE RECIPES
     const getRecipes = async (e) => {
-        // Prevent default submit action bahh this drove me crazy for a little
+        // Prevent default on the submit.
         e.preventDefault();
-        //Initialize variable so value assigned is done each get
-        // let recipes;
-        //Make get request using axios with query state object
-        fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${userInput}&apiKey=${apiKey1}&instructionsRequired=true&number=1`)
+
+        //Fetch the recipes based on user input, and store the recipe id for use later.
+        fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${userInput}&apiKey=${apiKey2}&instructionsRequired=true&number=3`)
             .then(res => res.json())
             .then(data => {
-                // console.log(data[0].id)
-                setInstructionsId(data[0].id)
+                const recipeIds = data.map(recipe => recipe.id)
+                console.log(recipeIds)
+                // Grabbing the id.
+                setInstructionsId(recipeIds)
+                // console.log(data.id)
                 //Assign response value to variable
                 //Set response to recipes state
                 setRecipeData(data)
@@ -349,83 +351,97 @@ const Spoon = () => {
 
 
     // Pull those actual instructions.
-    const getInstructions = (e) => {
+    const getInstructions = (recipeId) => {
         // Prevent default submit action bahh this drove me crazy for a little 
-        e.preventDefault();
+        // e.preventDefault();
         //Initialize variable so value assigned is done each get
         // let recipeData;
         //Make get request using axios with query state object
         // fetch(`https://api.spoonacular.com/recipes/${instructionsId}/analyzedInstructions$apiKey=${apiKey1}`)
-        fetch(`https://api.spoonacular.com/recipes/${instructionsId}/analyzedInstructions?apiKey=${apiKey1}`)
+        fetch(`https://api.spoonacular.com/recipes/${recipeId}/analyzedInstructions?apiKey=${apiKey2}`)
             // axios.get(`https://api.spoonacular.com/recipes/search?apiKey=ad25a893b45f4e808dc312fa5cf225fa&query=${query}&instructionsRequired=true&number=6`)
 
             // ad25a893b45f4e808dc312fa5cf225fa
             .then(res => res.json())
             .then(instructionData => {
-                console.log(instructionData[0])
+                console.log(instructionData)
                 setInstructionsList(instructionData)
             })
     }
 
+    React.useEffect(() => {
+        // Use useEffect to fetch instructions when the component mounts
+        if (recipeData.length > 0) {
+            const recipeIds = recipeData.map(recipe => recipe.id);
+            setInstructionsList([]); // Clear previous instructions
+            recipeIds.forEach(id => getInstructions(id));
+        }
+    }, []); // Empty dependency array means this runs once when the component mounts
+
     return (
 
+        <>
+            <div className="App" style={{ textAlign: 'center' }}>
+                <div style={{ marginTop: '15vh' }}>
+                    <h1 style={fontStyle}>Guess Chef!</h1>
+                    {/* Pass in event as arg to preventDefault action of form submit */}
+                    <form style={{ marginTop: '10vh' }} onSubmit={(e) => getRecipes(e)}>
+                        <input style={inputStyles} type="text" placeholder="What do you have?" onChange={(e) => setUserInput(e.target.value)} />
+                        <div style={{ margin: '1em' }}>
+                            <button className="btn btn-large" style={btnStyle} type='submit'>Let's eat!</button>
 
-        /////////////
+                            {/* Thinking about adding a "Suprise me!" Button for random recipes. */}
+                            {/* <button className="btn btn-large" style={btnStyle} type='submit'>Let's eat!</button> */}
+
+                        </div>
+                    </form>
+                </div>
+                <div>
+
+                    {recipeData.map(info => {
+
+                        ////////////////////////////
 
 
-        ////////////////////////
-        <>        <div className="App" style={{ textAlign: 'center' }}>
-            <div style={{ marginTop: '15vh' }}>
-                <h1 style={fontStyle}>HAANGRY</h1>
-                {/* Pass in event as arg to preventDefault action of form submit */}
-                <form style={{ marginTop: '10vh' }} onSubmit={(e) => getRecipes(e)}>
-                    <input style={inputStyles} type="text" placeholder="Steak, Mediterranean, green, etc..." onChange={(e) => setUserInput(e.target.value)} />
-                    <div style={{ margin: '1em' }}>
-                        <button className="btn btn-large" style={btnStyle} type='submit'>Feed Me!</button>
-                    </div>
-                </form>
-            </div>
-            <div>
-                {/* <pre>{JSON.stringify(recipeData, null, 1)}</pre> */}
+                        ////////////////////////////
+                        return (
+                            <div key={info.id}>
+                                <div className="card">
+                                    <img src={info.image} className="card-img-top" alt={info.title} />
+                                    <div className="card-body">
+                                        <h5 className="card-title">{info.title}</h5>
+                                        {/* <p className="card-text">{info.id}</p> */}
+                                        <div><button onClick={getInstructions(info.id)}>Let's Make It!</button>
+                                            {instructionsList.map(el => {
+                                                return el.steps.map((item) => <p key={item.number} className='card-text'>{item.number}: {item.step}</p>)
+                                            })}
 
-                {recipeData.map(info => {
-                    return (
-                        <>
-
-                            <div className="card">
-                                <img src={info.image} className="card-img-top" alt={info.title} />
-                                <div className="card-body">
-                                    <h5 className="card-title">{info.title}</h5>
-                                    {/* <p className="card-text">{info.id}</p> */}
-                                    <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
-                                    <div><button onClick={getInstructions}>Let's Make It!</button>
-                                        {instructionsList.map(el => {
-                                            return el.steps.map((item) => <p className='card-text'>{item.number}: {item.step}</p>)
-                                        })}
+                                        </div>
 
                                     </div>
-
                                 </div>
-                            </div>
-                            {/* <h1>{info.id}</h1>
+                                {/* <h1>{info.id}</h1>
                             <h2>{info.title}</h2>
                             <img src={info.image} alt={info.title} /> */}
-                            {/* <div> {instructionsList.map(el => {
+                                {/* <div> {instructionsList.map(el => {
                                 return <p>{el.steps.map(item => <ol>
                                     <li>[{item}]</li>
                                 </ol></p>
                             })} </div> */}
-                            {/* <pre>{JSON.stringify(instructionsList, null, 15)}</pre> */}
-                        </>
-                    )
+                                {/* <pre>{JSON.stringify(instructionsList, null, 15)}</pre> */}
+                            </div>
+                        )
 
-                })}
+                    })}
+                </div>
             </div>
-        </div >
         </>
     )
 
+
 }
+
+
 const btnStyle = {
     backgroundColor: '#19B5FE'
 }
