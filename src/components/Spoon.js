@@ -300,13 +300,13 @@ import React, { useState } from 'react';
 // import axios from 'axios';
 // import RecipeItem from './RecipeItem';
 import '../index.css';
-
+import { Card } from "bootstrap"
 
 // Let's set your API keys as variables, so that they'll be easier to use and reference, rather than typing them out all the time. These will be stored in your .env for security.
 // bkw3key
-// const apiKey1 = '3c5e4c07d493466d82b44cd7af5e3457'
+const apiKey1 = '3c5e4c07d493466d82b44cd7af5e3457'
 // bwdev key
-const apiKey2 = '0c6f59cdf5a4473cabde95a3bf90adce'
+// const apiKey2 = '0c6f59cdf5a4473cabde95a3bf90adce'
 
 
 const Spoon = () => {
@@ -335,11 +335,11 @@ const Spoon = () => {
         //Initialize variable so value assigned is done each get
         // let recipes;
         //Make get request using axios with query state object
-        fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${userInput}&apiKey=${apiKey2}&instructionsRequired=true&number=3`)
+        fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${userInput}&apiKey=${apiKey1}&instructionsRequired=true&number=1`)
             .then(res => res.json())
             .then(data => {
+                // console.log(data[0].id)
                 setInstructionsId(data[0].id)
-                // console.log(data)
                 //Assign response value to variable
                 //Set response to recipes state
                 setRecipeData(data)
@@ -356,7 +356,7 @@ const Spoon = () => {
         // let recipeData;
         //Make get request using axios with query state object
         // fetch(`https://api.spoonacular.com/recipes/${instructionsId}/analyzedInstructions$apiKey=${apiKey1}`)
-        fetch(`https://api.spoonacular.com/recipes/${instructionsId}/analyzedInstructions?apiKey=${apiKey2}`)
+        fetch(`https://api.spoonacular.com/recipes/${instructionsId}/analyzedInstructions?apiKey=${apiKey1}`)
             // axios.get(`https://api.spoonacular.com/recipes/search?apiKey=ad25a893b45f4e808dc312fa5cf225fa&query=${query}&instructionsRequired=true&number=6`)
 
             // ad25a893b45f4e808dc312fa5cf225fa
@@ -386,13 +386,6 @@ const Spoon = () => {
                 </form>
             </div>
             <div>
-                {/* {setRecipeData.map((rec) => ( */}
-                {/* <h1>{setRecipeData.title}</h1> */}
-                {/* ))} */}
-                {/* <RecipeItem key={recipeData.id} obj={recipeData} />
-                {recipeData.title} */}
-            </div>
-            <div>
                 {/* <pre>{JSON.stringify(recipeData, null, 1)}</pre> */}
 
                 {recipeData.map(info => {
@@ -400,7 +393,7 @@ const Spoon = () => {
                         <>
 
                             <div className="card">
-                                <img src={info.img} className="card-img-top" alt={info.title} />
+                                <img src={info.image} className="card-img-top" alt={info.title} />
                                 <div className="card-body">
                                     <h5 className="card-title">{info.title}</h5>
                                     {/* <p className="card-text">{info.id}</p> */}
