@@ -335,7 +335,7 @@ const Spoon = () => {
         //Initialize variable so value assigned is done each get
         // let recipes;
         //Make get request using axios with query state object
-        fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${userInput}&apiKey=${apiKey2}&instructionsRequired=true&number=1`)
+        fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${userInput}&apiKey=${apiKey2}&instructionsRequired=true&number=3`)
             .then(res => res.json())
             .then(data => {
                 setInstructionsId(data[0].id)
@@ -368,6 +368,12 @@ const Spoon = () => {
     }
 
     return (
+
+
+        /////////////
+
+
+        ////////////////////////
         <>        <div className="App" style={{ textAlign: 'center' }}>
             <div style={{ marginTop: '15vh' }}>
                 <h1 style={fontStyle}>HAANGRY</h1>
@@ -392,14 +398,31 @@ const Spoon = () => {
                 {recipeData.map(info => {
                     return (
                         <>
-                            <h1>{info.id}</h1>
+
+                            <div className="card">
+                                <img src={info.img} className="card-img-top" alt={info.title} />
+                                <div className="card-body">
+                                    <h5 className="card-title">{info.title}</h5>
+                                    {/* <p className="card-text">{info.id}</p> */}
+                                    <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
+                                    <div><button onClick={getInstructions}>Let's Make It!</button>
+                                        {instructionsList.map(el => {
+                                            return el.steps.map((item) => <p className='card-text'>{item.number}: {item.step}</p>)
+                                        })}
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            {/* <h1>{info.id}</h1>
                             <h2>{info.title}</h2>
-                            <img src={info.image} alt={info.title} />
-                            <button onClick={getInstructions}>Let's Make It!</button>
-                            <div> {instructionsList.map(el => {
-                                return <p>{el.steps.map(item => item.step)} </p>
-                            })} </div>
-                            {/* <pre>{JSON.stringify(instructionsList, null, 3)}</pre> */}
+                            <img src={info.image} alt={info.title} /> */}
+                            {/* <div> {instructionsList.map(el => {
+                                return <p>{el.steps.map(item => <ol>
+                                    <li>[{item}]</li>
+                                </ol></p>
+                            })} </div> */}
+                            {/* <pre>{JSON.stringify(instructionsList, null, 15)}</pre> */}
                         </>
                     )
 
