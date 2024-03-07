@@ -5,6 +5,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  background: #ffca3a;
 }
 
 
@@ -15,9 +17,20 @@ code {
 
 /* //////////////// */
 
+header,footer{
+  background-color: antiquewhite;
+  height: 200px;
+  padding: 2rem;
+  text-align: center;
+  width: 90%;
+}
+
+footer{
+  margin-top: 4rem;
+}
 .recipe-header{
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  /* grid-template-columns: repeat(2, 1fr); */
 }
 
 .badge-grid{
@@ -56,7 +69,18 @@ code {
   border: 3px solid green;
   box-shadow: 2px 2px 10px;
   border-radius: 8px;
-  width: 33%;
-  margin: 3rem;
+  /* width: 33%; */
+  margin: 1rem;
+  background-color: #f7dcad;
+}
+
+.card:hover{
+  transform: scale(110%) ;
+  transition-duration: 2s ease-in-out;
+}
+.recipes{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+
 }
 /* /// */

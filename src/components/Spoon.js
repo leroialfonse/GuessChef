@@ -367,6 +367,7 @@ const Spoon = () => {
                 console.log(instructionData)
                 // Use the recipeId from the function param
                 setInstructionsList(prevList => [...prevList, { recipeId, instructions: instructionData }]);
+
             })
     };
 
@@ -378,68 +379,79 @@ const Spoon = () => {
     // }
 
     return (
+        <>
 
-
-
-
-        <div className="App" style={{ textAlign: 'center' }}>
-
-            {/* <img onLoad={loadingDisplay} /> */}
-            <div style={{ marginTop: '15vh' }}>
+            <header>
                 <h1 style={fontStyle}>Guess Chef!</h1>
-                {/* Pass in event as arg to preventDefault action of form submit */}
-                <form style={{ marginTop: '10vh' }} onSubmit={(e) => getRecipes(e)}>
-                    <input style={inputStyles} type="text" placeholder="What do you have?" onChange={(e) => setUserInput(e.target.value)} />
-                    <div style={{ margin: '1em' }}>
-                        <button className="btn btn-large" style={btnStyle} type='submit'>Let's eat!</button>
+            </header>
 
-                        {/* Thinking about adding a "Suprise me!" Button for random recipes. */}
-                        {/* <button className="btn btn-large" style={btnStyle} type='submit'>Let's eat!</button> */}
+            <div className="App" style={{ textAlign: 'center' }}>
 
-                    </div>
-                </form>
-            </div>
-            <div >
-                {/* Let's loop through the Recipes and call the data info... */}
+                {/* <img onLoad={loadingDisplay} /> */}
+                <div >
 
-                {recipeData.map(info => (
-                    < div key={info.id} >
-                        <div style={{ padding: '2rem' }} className="card">
-                            <img src={info.image} className="card-img-top" alt={info.title} style={{ width: '90%', borderRadius: '10px' }} />
-                            <h3 className="card-title">{info.title}</h3>
-                            <h5>What you'll need:</h5>
-                            <div className="card-body">
-                                {info.missedIngredients.map(item => item.original).concat(info.usedIngredients.map(remainder => remainder.orginal))}
+                    {/* Pass in event as arg to preventDefault action of form submit */}
+                    <form style={{ marginTop: '10vh' }} onSubmit={(e) => getRecipes(e)}>
+                        <input style={inputStyles} type="text" placeholder="sugar,taragon, salsa..." onChange={(e) => setUserInput(e.target.value)} />
+                        <div style={{ margin: '1em' }}>
+                            <button className="btn btn-large" style={btnStyle} type='submit'>Let's eat!</button>
 
-                                {/* <h3 className='card-title'>   {info.missedIngredients} </h3> */}
-                                <div>
-                                    <button style={{ padding: '.1rem .5rem', margin: '1rem' }} onClick={() => getInstructions(info.id)}>Let's Make It!</button>
-                                    {/* Loop through the recipes and displayy the instructions */}
-                                    {instructionsList.map(entry => {
-                                        return entry.recipeId === info.id ?
-                                            entry.instructions[0].steps.map(step => <p key={step.number} className='card-text'>{step.number}: {step.step}</p>) : null;
+                            {/* Thinking about adding a "Suprise me!" Button for random recipes. */}
+                            {/* <button className="btn btn-large" style={btnStyle} type='submit'>Let's eat!</button> */}
 
-                                    })}
+                        </div>
+                    </form>
+                </div>
+                <div className='recipes'>
+                    {/* Let's loop through the Recipes and call the data info... */}
+
+                    {recipeData.map(info => (
+                        < div key={info.id} >
+                            <div style={{ padding: '2rem' }} className="card">
+                                <img src={info.image} className="card-img-top" alt={info.title} style={{ width: '90%', borderRadius: '10px' }} />
+                                <h3 className="card-title">{info.title}</h3>
+                                <h5>What you'll need:</h5>
+                                <div className="card-body">
+                                    {info.missedIngredients.map(item => item.original).concat(info.usedIngredients.map(remainder => remainder.orginal))}
+
+                                    {/* <h3 className='card-title'>   {info.missedIngredients} </h3> */}
+                                    <div>
+                                        <button style={{ padding: '.1rem .5rem', margin: '1rem' }} onClick={() => getInstructions(info.id)}>Let's Make It!</button>
+                                        {/* Loop through the recipes and displayy the instructions */}
+                                        {instructionsList.map(entry => {
+                                            return entry.recipeId === info.id ?
+                                                entry.instructions[0].steps.map(step => <p key={step.number} className='card-text'>{step.number}: {step.step}</p>) : null;
+
+                                        })}
+                                    </div>
+
                                 </div>
-
                             </div>
+
                         </div>
 
-                    </div>
 
-
-                ))}
-            </div>
-        </div >
-
+                    ))}
+                </div>
+                <footer>
+                    <span><small>BrandonWhite &copy; 2024</small></span>
+                </footer>
+            </div >
+        </>
     );
+
 
 
 }
 
 
 const btnStyle = {
-    backgroundColor: '#19B5FE'
+    backgroundColor: '#8ac926'
+
+    // reddish color : ff595e
+    // greenish : 8ac926
+    // yellow : ffca3a
+    // orange: EFA31E
 }
 
 const fontStyle = {
