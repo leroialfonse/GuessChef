@@ -296,7 +296,7 @@
 
 
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../index.css';
 
 // Let's set your API keys as variables, so that they'll be easier to use and reference, rather than typing them out all the time. These will be stored in your .env for security.
@@ -315,13 +315,17 @@ const Spoon = () => {
     // const [instructionsId, setInstructionsId] = React.useState({});
     const [instructionsList, setInstructionsList] = React.useState([]);
 
+    // Considering a loading delay and animation while a user awaits data...
+    const [isLoading, setIsLoading] = React.useState(false)
+
 
     // Go get three recipes with first Spoonacular call.
     // Let's make it async.
     const getRecipes = async (e) => {
         // Prevent default on the submit.
         e.preventDefault();
-
+        // Do something while the recipe info is loading in...
+        setIsLoading(true)
         //Fetch the recipes based on user input, and store the recipe id for use later.
         await fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${userInput}&apiKey=${apiKey3}&instructionsRequired=true&number=3`)
             .then(res => res.json())
@@ -337,13 +341,18 @@ const Spoon = () => {
                 // Clear old instructions
                 setInstructionsList([])
                 console.log(data);
+                setIsLoading(false)
             })
 
     };
 
+    useEffect(() => {
+        getRecipes()
+    }, [userInput])
+
 
     // Pull those actual instructions, for the recipe that needs them.
-    const getInstructions = (recipeId) => {
+    const getInstructions = async (recipeId) => {
         // Prevent default submit action bahh this drove me crazy for a little 
         // e.preventDefault();
         //Initialize variable so value assigned is done each get
@@ -351,7 +360,7 @@ const Spoon = () => {
         // Checking that I'm pulling the id correctly
         console.log("instructions Id:", recipeId);
         // fetch(`https://api.spoonacular.com/recipes/${instructionsId}/analyzedInstructions$apiKey=${apiKey1}`)
-        fetch(`https://api.spoonacular.com/recipes/${recipeId}/analyzedInstructions?apiKey=${apiKey3}`)
+        await fetch(`https://api.spoonacular.com/recipes/${recipeId}/analyzedInstructions?apiKey=${apiKey3}`)
 
             .then(res => res.json())
             .then(instructionData => {
@@ -361,10 +370,21 @@ const Spoon = () => {
             })
     };
 
+    // A function to trigger a loading gif ?? I'll come back to this.
+    // const loadingDisplay = () => {
+    //     if (isLoading) {
+    //         <video autoPlay='true' source="../public/images/spinner.gif" />
+    //     }
+    // }
+
     return (
 
 
+
+
         <div className="App" style={{ textAlign: 'center' }}>
+
+            {/* <img onLoad={loadingDisplay} /> */}
             <div style={{ marginTop: '15vh' }}>
                 <h1 style={fontStyle}>Guess Chef!</h1>
                 {/* Pass in event as arg to preventDefault action of form submit */}
@@ -379,21 +399,21 @@ const Spoon = () => {
                     </div>
                 </form>
             </div>
-            <div>
+            <div >
                 {/* Let's loop through the Recipes and call the data info... */}
 
                 {recipeData.map(info => (
                     < div key={info.id} >
-                        <div className="card">
-                            <img src={info.image} className="card-img-top" alt={info.title} style={{ width: '80%', margin: '.5rem', borderRadius: '10px' }} />
-
-                            <h4>What you'll need:</h4>
+                        <div style={{ padding: '2rem' }} className="card">
+                            <img src={info.image} className="card-img-top" alt={info.title} style={{ width: '90%', borderRadius: '10px' }} />
+                            <h3 className="card-title">{info.title}</h3>
+                            <h5>What you'll need:</h5>
                             <div className="card-body">
                                 {info.missedIngredients.map(item => item.original).concat(info.usedIngredients.map(remainder => remainder.orginal))}
-                                <h5 className="card-title">{info.title}</h5>
+
                                 {/* <h3 className='card-title'>   {info.missedIngredients} </h3> */}
                                 <div>
-                                    <button onClick={() => getInstructions(info.id)}>Let's Make It!</button>
+                                    <button style={{ padding: '.1rem .5rem', margin: '1rem' }} onClick={() => getInstructions(info.id)}>Let's Make It!</button>
                                     {/* Loop through the recipes and displayy the instructions */}
                                     {instructionsList.map(entry => {
                                         return entry.recipeId === info.id ?
