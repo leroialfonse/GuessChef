@@ -381,22 +381,24 @@ const Spoon = () => {
             </div>
             <div>
                 {/* Let's loop through the Recipes and call the data info... */}
+
                 {recipeData.map(info => (
-
-
-                    <div key={info.id}>
+                    < div key={info.id} >
                         <div className="card">
-                            <img src={info.image} className="card-img-top" alt={info.title} />
+                            <img src={info.image} className="card-img-top" alt={info.title} style={{ width: '80%', margin: '.5rem', borderRadius: '10px' }} />
+
+                            <h4>What you'll need:</h4>
                             <div className="card-body">
+                                {info.missedIngredients.map(item => item.original).concat(info.usedIngredients.map(remainder => remainder.orginal))}
                                 <h5 className="card-title">{info.title}</h5>
-                                {/* {info.missedIngredients} */}
+                                {/* <h3 className='card-title'>   {info.missedIngredients} </h3> */}
                                 <div>
                                     <button onClick={() => getInstructions(info.id)}>Let's Make It!</button>
                                     {/* Loop through the recipes and displayy the instructions */}
                                     {instructionsList.map(entry => {
-                                        if (entry.recipeId === info.id) {
-                                            return entry.instructions[0].steps.map(step => <p key={step.number} className='card-text'>{step.number}: {step.step}</p>)
-                                        }
+                                        return entry.recipeId === info.id ?
+                                            entry.instructions[0].steps.map(step => <p key={step.number} className='card-text'>{step.number}: {step.step}</p>) : null;
+
                                     })}
                                 </div>
 
