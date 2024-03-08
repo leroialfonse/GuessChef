@@ -48,12 +48,12 @@ function App() {
       {/* <Header /> */}
       {/* <div className='info'> */}
       {/* <Info /> */}
-      <div className='info'>
-        {/* <Recipes /> */}
-        <Spoon />
+      {/* <div className='info'> */}
+      {/* <Recipes /> */}
+      <Spoon />
 
-        {/* <Spoons /> */}
-      </div>
+      {/* <Spoons /> */}
+      {/* </div> */}
       {/* </div> */}
     </>
   )

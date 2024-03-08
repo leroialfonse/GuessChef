@@ -380,64 +380,66 @@ const Spoon = () => {
 
     return (
         <>
-
+            {/* 
             <header>
-                <h1 style={fontStyle}>Guess Chef!</h1>
-            </header>
+            </header> */}
 
-            <div className="App" style={{ textAlign: 'center' }}>
+            {/* <div className="App" style={{ textAlign: 'center' }}> */}
+            <h1 style={fontStyle}>Guess Chef!</h1>
 
-                {/* <img onLoad={loadingDisplay} /> */}
-                <div >
+            {/* <img onLoad={loadingDisplay} /> */}
+            <div className='searchIngredients'>
 
-                    {/* Pass in event as arg to preventDefault action of form submit */}
-                    <form style={{ marginTop: '10vh' }} onSubmit={(e) => getRecipes(e)}>
-                        <input style={inputStyles} type="text" placeholder="sugar,taragon, salsa..." onChange={(e) => setUserInput(e.target.value)} />
-                        <div style={{ margin: '1em' }}>
-                            <button className="btn btn-large" style={btnStyle} type='submit'>Let's eat!</button>
+                {/* Pass in event as arg to preventDefault action of form submit */}
+                <form style={{ marginTop: '10vh' }} onSubmit={(e) => getRecipes(e)}>
+                    <input style={inputStyles} type="text" placeholder="sugar, taragon, salsa..." onChange={(e) => setUserInput(e.target.value)} />
+                    {/* <div style={{ margin: '1em' }}> */}
+                    <button className="btn btn-large" style={btnStyle} type='submit'>Let's eat!</button>
 
-                            {/* Thinking about adding a "Suprise me!" Button for random recipes. */}
-                            {/* <button className="btn btn-large" style={btnStyle} type='submit'>Let's eat!</button> */}
+                    {/* Thinking about adding a "Suprise me!" Button for random recipes. */}
+                    {/* <button className="btn btn-large" style={btnStyle} type='submit'>Let's eat!</button> */}
 
-                        </div>
-                    </form>
-                </div>
-                <div className='recipes'>
-                    {/* Let's loop through the Recipes and call the data info... */}
-
-                    {recipeData.map(info => (
-                        < div key={info.id} >
-                            <div style={{ padding: '2rem' }} className="card">
-                                <img src={info.image} className="card-img-top" alt={info.title} style={{ width: '90%', borderRadius: '10px' }} />
-                                <h3 className="card-title">{info.title}</h3>
-                                <h5>What you'll need:</h5>
-                                <div className="card-body">
-                                    {info.missedIngredients.map(item => item.original).concat(info.usedIngredients.map(remainder => remainder.orginal))}
-
-                                    {/* <h3 className='card-title'>   {info.missedIngredients} </h3> */}
-                                    <div>
-                                        <button style={{ padding: '.1rem .5rem', margin: '1rem' }} onClick={() => getInstructions(info.id)}>Let's Make It!</button>
-                                        {/* Loop through the recipes and displayy the instructions */}
-                                        {instructionsList.map(entry => {
-                                            return entry.recipeId === info.id ?
-                                                entry.instructions[0].steps.map(step => <p key={step.number} className='card-text'>{step.number}: {step.step}</p>) : null;
-
-                                        })}
-                                    </div>
-
-                                </div>
-                            </div>
-
-                        </div>
-
-
-                    ))}
-                </div>
-                <footer>
-                    <span><small>BrandonWhite &copy; 2024</small></span>
-                </footer>
+                    {/* </div> */}
+                </form>
             </div >
+            <div className='recipes'>
+                {/* Let's loop through the Recipes and call the data info... */}
+
+                {recipeData.map(info => (
+                    < div key={info.id} >
+                        <div style={{ padding: '2rem' }} className="card">
+                            <img src={info.image} className="card-img-top" alt={info.title} style={{ width: '90%', borderRadius: '10px' }} />
+                            <h3 className="card-title">{info.title}</h3>
+                            <h5>What you'll need:</h5>
+                            <div className="card-body">
+                                {info.missedIngredients.map(item => item.original).concat(info.usedIngredients.map(remainder => remainder.orginal))}
+
+                                {/* <h3 className='card-title'>   {info.missedIngredients} </h3> */}
+                                <div>
+                                    <button style={{ padding: '.1rem .5rem', margin: '1rem' }} onClick={() => getInstructions(info.id)}>Let's Make It!</button>
+                                    {/* Loop through the recipes and displayy the instructions */}
+                                    {instructionsList.map(entry => {
+                                        return entry.recipeId === info.id ?
+                                            entry.instructions[0].steps.map(step => <p key={step.number} className='card-text'>{step.number}: {step.step}</p>) : null;
+
+                                    })}
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                ))}
+            </div>
+
+            {/* </div > */}
+            {/* <footer>
+                <span><small>BrandonWhite &copy; 2024</small></span>
+            </footer> */}
         </>
+
     );
 
 
@@ -446,7 +448,11 @@ const Spoon = () => {
 
 
 const btnStyle = {
-    backgroundColor: '#8ac926'
+    backgroundColor: '#8ac926',
+    borderRadius: '.3rem',
+    padding: '.2rem .4rem',
+    margin: '1rem'
+
 
     // reddish color : ff595e
     // greenish : 8ac926
@@ -458,15 +464,19 @@ const fontStyle = {
     fontSize: '5em',
     color: 'green',
     letterSpacing: '5px',
-    textShadow: '-2px 2px 1px rgba(150, 150, 150, 1)'
+    textShadow: '-2px 2px 1px rgba(150, 150, 150, 1)',
+    // margin: '3rem'
+
 }
 
 const inputStyles = {
     width: '40%',
-    padding: '0.6em',
     fontSize: '1.4em',
     backgroundColor: 'black',
-    color: 'azure'
+    color: 'azure',
+    textIndent: '.6rem',
+    borderRadius: '.3rem',
+    height: '1.8rem'
 }
 
 export default Spoon;
