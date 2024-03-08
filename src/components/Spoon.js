@@ -391,7 +391,7 @@ const Spoon = () => {
             <div className='searchIngredients'>
 
                 {/* Pass in event as arg to preventDefault action of form submit */}
-                <form style={{ marginTop: '10vh' }} onSubmit={(e) => getRecipes(e)}>
+                <form onSubmit={(e) => getRecipes(e)}>
                     <input style={inputStyles} type="text" placeholder="sugar, taragon, salsa..." onChange={(e) => setUserInput(e.target.value)} />
                     {/* <div style={{ margin: '1em' }}> */}
                     <button className="btn btn-large" style={btnStyle} type='submit'>Let's eat!</button>
