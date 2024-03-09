@@ -412,8 +412,8 @@ const Spoon = () => {
                             <h3 className="card-title">{info.title}</h3>
                             <h5>What you'll need:</h5>
                             <div className="card-body">
-                                {info.missedIngredients.map(item => item.original).concat(info.usedIngredients.map(remainder => remainder.orginal))}
-
+                                {/* {info.missedIngredients.map(item => item.original).concat(info.usedIngredients.map(remainder => remainder.orginal))} */}
+                                {info.missedIngredients.concat(info.usedIngredients).map(item => <ul><li><p>{item.original}</p></li></ul>)}
                                 {/* <h3 className='card-title'>   {info.missedIngredients} </h3> */}
                                 <div>
                                     <button style={{ padding: '.1rem .5rem', margin: '1rem' }} onClick={() => getInstructions(info.id)}>Let's Make It!</button>

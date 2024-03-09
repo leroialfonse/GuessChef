@@ -79,13 +79,11 @@ footer{
   /* width: 33%; */
   margin: 1rem;
   background-color: #f7dcad;  
-  /* background-color: aliceblue; */
 
 }
 
 .card:hover{
   transform: scale(110%) ;
-  transition-duration: 2s ease-in-out;
 }
 .recipes{
   display: grid;
@@ -96,8 +94,29 @@ footer{
 /* /// */
 
 @media screen and (max-width: 995px) {
-  .cards {
+
+  body:not(text){
+    
+    margin: 2rem auto;
+    max-width: 60%;
+    text-align: center;
+  }
+  .recipes {
     display: flex;
     flex-direction: column;
+    align-content: center;
+  }
+
+
+  .card, .searchIngredients, h1{
+    /* max-width: 60%;
+    text-align: center; */
+    /* margin: 0 auto; */
+    /* justify-self: center;
+    align-self: center; */
+  }
+
+  h1{
+    font-size: 60%;
   }
 }
