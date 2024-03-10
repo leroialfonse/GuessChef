@@ -2,15 +2,16 @@
 
 import React, { useState } from 'react';
 import '../index.css';
-
+// import 'dotenv/config';
 // Let's set your API keys as variables, so that they'll be easier to use and reference, rather than typing them out all the time. These will be stored in your .env for security.
 // bkw3key
 // const apiKey1 = '3c5e4c07d493466d82b44cd7af5e3457'
 // bwdev key
-const apiKey2 = '5963985905544870a25e7ff59588aeac'
+const apiKey2 = 'a7ba6119bf1448f89a6a37ca0b4a1fcd'
 // rigor key
 // const apiKey3 = 'ad25a893b45f4e808dc312fa5cf225fa'
 
+// const API_KEY = process.env.API_KEY;
 
 const Spoon = () => {
     // create functional state
@@ -67,7 +68,7 @@ const Spoon = () => {
     // Pull those actual instructions, for the recipe that needs them.
     const getInstructions = async (recipeId, e) => {
         // Prevent default submit action bahh this drove me crazy for a little 
-        e.preventDefault();
+        // e.preventDefault();
         //Initialize variable so value assigned is done each get
         // let instructionsId;
         // Checking that I'm pulling the id correctly
