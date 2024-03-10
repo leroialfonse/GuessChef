@@ -296,7 +296,7 @@
 
 
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import '../index.css';
 
 // Let's set your API keys as variables, so that they'll be easier to use and reference, rather than typing them out all the time. These will be stored in your .env for security.
@@ -316,39 +316,48 @@ const Spoon = () => {
     const [instructionsList, setInstructionsList] = React.useState([]);
 
     // Considering a loading delay and animation while a user awaits data...
-    const [isLoading, setIsLoading] = React.useState(false)
 
 
     // Go get three recipes with first Spoonacular call.
     // Let's make it async.
     const getRecipes = async (e) => {
-        // Prevent default on the submit.
+        // Prevent search bar automatic fire.
         e.preventDefault();
+
+        // Check if there is no user input
+        if (!userInput) {
+            // Display a message on the screen
+            document.getElementById("warning").innerHTML = "Hey! You haven't searched anything yet!!"
+
+            return;
+        }
+        // Clear that error message
+        document.getElementById("warning").innerHTML = ''
+
+
         // Do something while the recipe info is loading in...
-        setIsLoading(true)
-        //Fetch the recipes based on user input, and store the recipe id for use later.
+        // setIsLoading(true)
+
+
+
+        // Fetch the recipes based on user input, and store the recipe id for use later.
         await fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${userInput}&apiKey=${apiKey3}&instructionsRequired=true&number=3`)
             .then(res => res.json())
             .then(data => {
-                // const recipeIds = data.map(recipe => recipe.id)
-                // console.log(recipeData.id)
-                // Grabbing the id.
-                // setInstructionsId(recipeData.id)
-                // console.log(data.id)
-                //Assign response value to variable
-                //Set response to recipes state
-                setRecipeData(data)
+                // Set response to recipes state
+                setRecipeData(data);
                 // Clear old instructions
-                setInstructionsList([])
+                setInstructionsList([]);
                 console.log(data);
-                setIsLoading(false)
-            })
+                // setIsLoading(false);
 
+            });
     };
 
-    useEffect(() => {
+
+    React.useEffect(() => {
         getRecipes()
-    }, [userInput])
+    },)
 
 
     // Pull those actual instructions, for the recipe that needs them.
@@ -377,7 +386,7 @@ const Spoon = () => {
     //         <video autoPlay='true' source="../public/images/spinner.gif" />
     //     }
     // }
-
+    console.log(recipeData)
     return (
         <>
             {/* 
@@ -386,15 +395,19 @@ const Spoon = () => {
 
             {/* <div className="App" style={{ textAlign: 'center' }}> */}
             <h1 style={fontStyle}>Guess Chef!</h1>
+            <h1 style={fontStyle2}>Hungry? Let's make a Snack!!</h1>
 
             {/* <img onLoad={loadingDisplay} /> */}
             <div className='searchIngredients'>
 
                 {/* Pass in event as arg to preventDefault action of form submit */}
+
                 <form onSubmit={(e) => getRecipes(e)}>
-                    <input style={inputStyles} type="text" placeholder="sugar, taragon, salsa..." onChange={(e) => setUserInput(e.target.value)} />
-                    {/* <div style={{ margin: '1em' }}> */}
-                    <button className="btn btn-large" style={btnStyle} type='submit'>Let's eat!</button>
+                    <input className='inputStyle' type="text" placeholder="sugar, taragon, salsa..." onChange={(e) => setUserInput(e.target.value)} />
+                    {/* <div style={{ margin:h'1em' }}> */}
+                    <div id='warning'></div>
+                    {/* <button className="btn btn-large" style={btnStyle} type='submit'>Let's eat!</button> */}
+                    <button className="btn btn-large" type='submit'>Let's eat!</button>
 
                     {/* Thinking about adding a "Suprise me!" Button for random recipes. */}
                     {/* <button className="btn btn-large" style={btnStyle} type='submit'>Let's eat!</button> */}
@@ -402,21 +415,25 @@ const Spoon = () => {
                     {/* </div> */}
                 </form>
             </div >
+            <p id='loading'></p>
             <div className='recipes'>
-                {/* Let's loop through the Recipes and call the data info... */}
 
+                {/* Let's loop through the Recipes and call the data info... */}
                 {recipeData.map(info => (
+
                     < div key={info.id} >
+
                         <div style={{ padding: '2rem' }} className="card">
-                            <img src={info.image} className="card-img-top" alt={info.title} style={{ width: '90%', borderRadius: '10px' }} />
+                            <img src={info.image} className="card-img-top" alt={info.title} style={{ borderRadius: '10px' }} />
                             <h3 className="card-title">{info.title}</h3>
-                            <h5>What you'll need:</h5>
+                            <h4>What you'll need:</h4>
                             <div className="card-body">
                                 {/* {info.missedIngredients.map(item => item.original).concat(info.usedIngredients.map(remainder => remainder.orginal))} */}
                                 {info.missedIngredients.concat(info.usedIngredients).map(item => <ul><li><p>{item.original}</p></li></ul>)}
                                 {/* <h3 className='card-title'>   {info.missedIngredients} </h3> */}
                                 <div>
-                                    <button style={{ padding: '.1rem .5rem', margin: '1rem' }} onClick={() => getInstructions(info.id)}>Let's Make It!</button>
+                                    {/* <button style={{ padding: '.1rem .5rem', margin: '1rem' }} onClick={() => getInstructions(info.id)}>Let's Make It!</button> */}
+                                    <button onClick={() => getInstructions(info.id)}>Let's Make It!</button>
                                     {/* Loop through the recipes and displayy the instructions */}
                                     {instructionsList.map(entry => {
                                         return entry.recipeId === info.id ?
@@ -432,7 +449,7 @@ const Spoon = () => {
 
 
                 ))}
-            </div>
+            </div >
 
             {/* </div > */}
             {/* <footer>
@@ -447,36 +464,45 @@ const Spoon = () => {
 }
 
 
-const btnStyle = {
-    backgroundColor: '#8ac926',
-    borderRadius: '.3rem',
-    padding: '.2rem .4rem',
-    margin: '1rem'
+// const btnStyle = {
+//     backgroundColor: '#8ac926',
+//     borderRadius: '.3rem',
+//     padding: '.2rem .4rem',
+//     margin: '1rem'
 
 
-    // reddish color : ff595e
-    // greenish : 8ac926
-    // yellow : ffca3a
-    // orange: EFA31E
-}
+// reddish color : ff595e
+// greenish : 8ac926
+// yellow : ffca3a
+// orange: EFA31E
+// }
 
 const fontStyle = {
-    fontSize: '5em',
+    fontSize: '5rem',
     color: 'green',
-    letterSpacing: '5px',
+    letterSpacing: '3px',
     textShadow: '-2px 2px 1px rgba(150, 150, 150, 1)',
-    // margin: '3rem'
+    margin: '2rem'
 
 }
 
-const inputStyles = {
-    width: '40%',
-    fontSize: '1.4em',
-    backgroundColor: 'black',
-    color: 'azure',
-    textIndent: '.6rem',
-    borderRadius: '.3rem',
-    height: '1.8rem'
+const fontStyle2 = {
+    color: 'green',
+    letterSpacing: '3px',
+    // textShadow: '-2px 2px 1px rgba(150, 150, 150, 1)',
+    margin: '-2rem 2.5rem '
+
 }
+
+
+// const inputStyles = {
+//     width: '40%',
+//     fontSize: '1.4em',
+//     backgroundColor: 'black',
+//     color: 'azure',
+//     textIndent: '.6rem',
+//     borderRadius: '.3rem',
+//     height: '1.8rem'
+// }
 
 export default Spoon;
