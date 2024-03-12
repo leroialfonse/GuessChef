@@ -2,29 +2,21 @@
 
 import React, { useState, useEffect } from 'react';
 import '../index.css';
-// import 'dotenv/config';
-// Let's set your API keys as variables, so that they'll be easier to use and reference, rather than typing them out all the time. These will be stored in your .env for security.
-// bkw3key
-// const apiKey1 = '3c5e4c07d493466d82b44cd7af5e3457'
-// bwdev key
-const apiKey2 = 'a7ba6119bf1448f89a6a37ca0b4a1fcd'
-// rigor key
-// const apiKey3 = 'ad25a893b45f4e808dc312fa5cf225fa'
 
-// const API_KEY = process.env.API_KEY;
+const API_KEY = process.env.API_KEY;
 
 const Spoon = () => {
-    // create functional state
+
+    // create some state state for user input, recipe data and recipe instructions.
     const [userInput, setUserInput] = useState('');
     const [recipeData, setRecipeData] = useState([]);
+
+    // Do I need one for the recipe id?? Let's come back later.
     // const [instructionsId, setInstructionsId] = React.useState({});
+
     const [instructionsList, setInstructionsList] = React.useState([]);
-    // const [instructionsFetched, setInstructionsFetched] = React.useState(false)
-    // const [showInstructions, setShowInstructions] = React.useState(false);
 
-
-    // Set a ref to scroll to the recipes
-    // const recipeSectionRef = useRef(null)
+    // TODO:
     // Considering a loading delay and animation while a user awaits data...
 
 
@@ -45,11 +37,10 @@ const Spoon = () => {
         document.getElementById("warning").innerHTML = ''
 
 
-        // Do something while the recipe info is loading in...
-        // setIsLoading(true)
+        /* Do something while the recipe info is loading in... I think I'd like to add a spinner and a delay. Maybe some food ingreditents like, circle around.... */
 
         // Fetch the recipes based on user input, and store the recipe id for use later.
-        await fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${userInput}&apiKey=${apiKey2}&instructionsRequired=true&number=3`)
+        await fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${userInput}&apiKey=${API_KEY}&instructionsRequired=true&number=3`)
             .then(res => res.json())
             .then(data => {
                 // Set response to recipes state
@@ -79,7 +70,7 @@ const Spoon = () => {
         // Checking that I'm pulling the id correctly
         console.log("instructions Id:", recipeId);
         // fetch(`https://api.spoonacular.com/recipes/${instructionsId}/analyzedInstructions$apiKey=${apiKey1}`)
-        await fetch(`https://api.spoonacular.com/recipes/${recipeId}/analyzedInstructions?apiKey=${apiKey2}`)
+        await fetch(`https://api.spoonacular.com/recipes/${recipeId}/analyzedInstructions?apiKey=${API_KEY}`)
 
             .then(res => res.json())
             .then(instructionData => {
@@ -100,13 +91,7 @@ const Spoon = () => {
     //         <video autoPlay='true' source="../public/images/spinner.gif" />
     //     }
     // }
-    const changeBackground = () => {
-        const section = document.getElementsByClassName('.card')
-        for (let i = 0; i < section.length; i++) {
-            section[i].backgroundColor = "blue";
-        }
 
-    }
 
     console.log(recipeData)
     return (
