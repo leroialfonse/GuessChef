@@ -1,6 +1,6 @@
 
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../index.css';
 // import 'dotenv/config';
 // Let's set your API keys as variables, so that they'll be easier to use and reference, rather than typing them out all the time. These will be stored in your .env for security.
@@ -19,7 +19,12 @@ const Spoon = () => {
     const [recipeData, setRecipeData] = useState([]);
     // const [instructionsId, setInstructionsId] = React.useState({});
     const [instructionsList, setInstructionsList] = React.useState([]);
+    // const [instructionsFetched, setInstructionsFetched] = React.useState(false)
+    // const [showInstructions, setShowInstructions] = React.useState(false);
 
+
+    // Set a ref to scroll to the recipes
+    // const recipeSectionRef = useRef(null)
     // Considering a loading delay and animation while a user awaits data...
 
 
@@ -32,7 +37,7 @@ const Spoon = () => {
         // Check if there is no user input
         if (!userInput) {
             // Display a message on the screen
-            document.getElementById("warning").innerHTML = "Hey! You haven't searched anything yet!!"
+            document.getElementById("warning").innerHTML = "Hey! You haven't searched for anything yet!!"
 
             return;
         }
@@ -43,8 +48,6 @@ const Spoon = () => {
         // Do something while the recipe info is loading in...
         // setIsLoading(true)
 
-
-
         // Fetch the recipes based on user input, and store the recipe id for use later.
         await fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${userInput}&apiKey=${apiKey2}&instructionsRequired=true&number=3`)
             .then(res => res.json())
@@ -53,16 +56,18 @@ const Spoon = () => {
                 setRecipeData(data);
                 // Clear old instructions
                 setInstructionsList([]);
-                console.log(data);
                 // setIsLoading(false);
-
+                // Scroll to recipes
+                // if (recipeSectionRef.current) {
+                //     recipeSectionRef.current.scrollIntoView({ behavior: 'smooth' });
+                // }
             });
     };
 
 
-    React.useEffect(() => {
+    useEffect(() => {
         getRecipes()
-    },)
+    }, []);
 
 
     // Pull those actual instructions, for the recipe that needs them.
@@ -85,7 +90,9 @@ const Spoon = () => {
             })
     };
 
-
+    // const toggleInstructions = () => {
+    //     setShowInstructions(prevShow => !prevShow)
+    // }
 
     // A function to trigger a loading gif ?? I'll come back to this.
     // const loadingDisplay = () => {
@@ -93,6 +100,14 @@ const Spoon = () => {
     //         <video autoPlay='true' source="../public/images/spinner.gif" />
     //     }
     // }
+    const changeBackground = () => {
+        const section = document.getElementsByClassName('.card')
+        for (let i = 0; i < section.length; i++) {
+            section[i].backgroundColor = "blue";
+        }
+
+    }
+
     console.log(recipeData)
     return (
         <>
@@ -109,7 +124,7 @@ const Spoon = () => {
                 <div className='searchIngredients'>
 
 
-                    <h3 className='explainer'>Hungry, but can't decide what to have? Let Guess Chef help! Just type in ingredients you have into the search bar, and Gus will suggest a few easy recipes you could make!</h3>
+                    <h3 className='explainer'>Hungry, but can't decide what to have? Let Guess Chef help! Just type in ingredients you have into the search bar, and Guess Chef will suggest a few easy recipes you could make!</h3>
 
                     {/* Pass in event as arg to preventDefault action of form submit */}
 
@@ -125,8 +140,8 @@ const Spoon = () => {
 
                         {/* </div> */}
                     </form>
-                </div >
-                <p id='loading'></p>
+                </div>
+                {/* <p id='loading'></p> */}
                 <div className='recipes'>
 
                     {/* Let's loop through the Recipes and call the data info... */}
@@ -134,7 +149,7 @@ const Spoon = () => {
 
                         < div key={info.id} >
 
-                            <div style={{ padding: '2rem' }} className="card">
+                            <div className="card">
                                 <img src={info.image} className="card-img-top" alt={info.title} style={{ borderRadius: '10px' }} />
                                 <h3 className="card-title">{info.title}</h3>
                                 <h4>What you'll need:</h4>
@@ -144,7 +159,7 @@ const Spoon = () => {
                                     {/* <h3 className='card-title'>   {info.missedIngredients} </h3> */}
                                     <div>
 
-                                        <button onClick={() => getInstructions(info.id)}>Let's Make It!</button>
+                                        <button onClick={() => { getInstructions(info.id) }}>Let's Make It!</button>
                                         {/* Loop through the recipes and displayy the instructions */}
                                         {instructionsList.map(entry => {
                                             return entry.recipeId === info.id ?
