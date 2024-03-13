@@ -6,7 +6,9 @@
   --color5: #2a5d0d;
   --color5b: #2a5d0d90;
   --color6: #eeeded; 
-  --color7: #eeeded15; 
+  --color6b: #eeeded50; 
+  --color7: #eeeded15;
+
 }
 
 body {
@@ -15,16 +17,15 @@ body {
   font-family: 'Ubuntu', 'Bebas Neue', 'Segoe UI', 'Roboto', 'Oxygen',
     'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-    background-image: url('/public/images/ingredients5.jpg');
-    background-repeat: no-repeat;
-    background-position: center;
+  background-image: url('/public/images/ingredients5.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
     background-size: cover; 
     position: relative;
     height: 100%;
-    
-display: flex;
-flex-direction: column;
-font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    /* font-size: 1rem; */
 }
 
 
@@ -44,7 +45,7 @@ font-size: 1rem;
   font-weight: bolder;
   /* background: var(--color7); */
   text-shadow: -1px -1px 8px var(--color6);
-  background:  linear-gradient(var(--color6), var(--color7));
+  /* background:  linear-gradient(180deg, var(--color6b), var(--color7)); */
 
 }
 
@@ -153,8 +154,16 @@ margin-bottom: 2rem;
 
 
   *{
-    font-size: 1rem;
+    /* font-size: 1rem; */
     text-wrap: balance;
+  }
+
+  h1{
+    font-size: 2rem;
+  }
+
+  h2{
+    font-size: 1rem;
   }
   body:not(text), .explainer{
     
@@ -172,6 +181,14 @@ margin-bottom: 2rem;
     flex-direction: column;
     align-content: center;
 
+  }
+
+  .explainer{
+    /* text-shadow: .1px -.1px  .1px var(--color4); */
+    background: linear-gradient(180deg, var(--color3), var(--color6b));
+font-weight:light;
+letter-spacing: .5px;
+    /* background: var(--color6b) */
   }
 
 }

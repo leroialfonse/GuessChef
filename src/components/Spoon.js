@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import '../index.css';
 
-const API_KEY = process.env.API_KEY;
+const apiKey = process.env.REACT_APP_API
 
 const Spoon = () => {
 
@@ -32,15 +32,18 @@ const Spoon = () => {
             document.getElementById("warning").innerHTML = "Hey! You haven't searched for anything yet!!"
 
             return;
+
+
         }
-        // Clear that error message
-        document.getElementById("warning").innerHTML = ''
+
 
 
         /* Do something while the recipe info is loading in... I think I'd like to add a spinner and a delay. Maybe some food ingreditents like, circle around.... */
 
+
+
         // Fetch the recipes based on user input, and store the recipe id for use later.
-        await fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${userInput}&apiKey=${API_KEY}&instructionsRequired=true&number=3`)
+        await fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${userInput}&apiKey=${apiKey}&instructionsRequired=true&number=3`)
             .then(res => res.json())
             .then(data => {
                 // Set response to recipes state
@@ -53,12 +56,13 @@ const Spoon = () => {
                 //     recipeSectionRef.current.scrollIntoView({ behavior: 'smooth' });
                 // }
             });
+
     };
 
 
     useEffect(() => {
         getRecipes()
-    });
+    }, []);
 
 
     // Pull those actual instructions, for the recipe that needs them.
@@ -70,7 +74,7 @@ const Spoon = () => {
         // Checking that I'm pulling the id correctly
         console.log("instructions Id:", recipeId);
         // fetch(`https://api.spoonacular.com/recipes/${instructionsId}/analyzedInstructions$apiKey=${apiKey1}`)
-        await fetch(`https://api.spoonacular.com/recipes/${recipeId}/analyzedInstructions?apiKey=${API_KEY}`)
+        await fetch(`https://api.spoonacular.com/recipes/${recipeId}/analyzedInstructions?apiKey=${apiKey}`)
 
             .then(res => res.json())
             .then(instructionData => {
@@ -93,13 +97,10 @@ const Spoon = () => {
     // }
 
 
-    console.log(recipeData)
     return (
         <>
             <main>
-                {/* 
-            <header>
-            </header> */}
+
 
                 {/* <div className="App" style={{ textAlign: 'center' }}> */}
                 <h1>Guess Chef!</h1>
@@ -130,7 +131,8 @@ const Spoon = () => {
                 <div className='recipes'>
 
                     {/* Let's loop through the Recipes and call the data info... */}
-                    {recipeData.map(info => (
+
+                    {recipeData.map((info) => (
 
                         < div key={info.id} >
 
