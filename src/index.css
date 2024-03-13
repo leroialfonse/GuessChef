@@ -27,8 +27,6 @@ flex-direction: column;
 font-size: 1rem;
 }
 
-main{
-}
 
 #warning{
   font-style:italic;
@@ -46,6 +44,7 @@ main{
   font-weight: bolder;
   /* background: var(--color7); */
   text-shadow: -1px -1px 8px var(--color6);
+  background:  linear-gradient(var(--color6), var(--color7));
 
 }
 
@@ -139,7 +138,8 @@ margin-bottom: 2rem;
  }
 
 .card:hover{
-  transform: scale(110%) ;
+  /* transform: scale(110%) ; */
+  transform: scale(.5) translateY(-20);
 }
 
 

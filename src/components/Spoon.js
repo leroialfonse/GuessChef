@@ -58,7 +58,7 @@ const Spoon = () => {
 
     useEffect(() => {
         getRecipes()
-    }, []);
+    });
 
 
     // Pull those actual instructions, for the recipe that needs them.
