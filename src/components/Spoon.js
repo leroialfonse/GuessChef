@@ -3,13 +3,19 @@
 import React, { useState, useEffect } from 'react';
 import '../index.css';
 
-const apiKey = process.env.REACT_APP_API
+import ReactDOM from 'react-dom'
 
+
+
+const apiKey = process.env.REACT_APP_API
 const Spoon = () => {
 
     // create some state state for user input, recipe data and recipe instructions.
     const [userInput, setUserInput] = useState('');
     const [recipeData, setRecipeData] = useState([]);
+
+    // Favorite a recipe
+    const [isFavorite, setIsFavorite] = useState(false)
 
     // Do I need one for the recipe id?? Let's come back later.
     // const [instructionsId, setInstructionsId] = React.useState({});
@@ -47,7 +53,7 @@ const Spoon = () => {
             .then(res => res.json())
             .then(data => {
                 // Set response to recipes state
-                setRecipeData(data);
+                setRecipeData(data, isFavorite);
                 // Clear old instructions
                 setInstructionsList([]);
                 // setIsLoading(false);
@@ -62,7 +68,7 @@ const Spoon = () => {
 
     useEffect(() => {
         getRecipes()
-    }, []);
+    }, [recipeData]);
 
 
     // Pull those actual instructions, for the recipe that needs them.
@@ -85,9 +91,15 @@ const Spoon = () => {
             })
     };
 
-    // const toggleInstructions = () => {
-    //     setShowInstructions(prevShow => !prevShow)
-    // }
+
+    // Mark a recipe as a favorite
+    const markFavorite = (recipeId) => {
+        //   let  heart = document.getElement(".favorite").innerHTML = 
+        setIsFavorite(prevState => !prevState)
+    }
+    let heartIcon = isFavorite ? '/images/filledHeart.png' : '/images/lilHeart.png'
+
+
 
     // A function to trigger a loading gif ?? I'll come back to this.
     // const loadingDisplay = () => {
@@ -95,7 +107,6 @@ const Spoon = () => {
     //         <video autoPlay='true' source="../public/images/spinner.gif" />
     //     }
     // }
-
 
     return (
         <>
@@ -135,9 +146,10 @@ const Spoon = () => {
                     {recipeData.map((info) => (
 
                         < div key={info.id} >
-
                             <div className="card">
                                 <img src={info.image} className="card-img-top" alt={info.title} style={{ borderRadius: '10px' }} />
+                                <img id={info.id} src={heartIcon} className="favorite" onClick={markFavorite} alt='Mark as Favorite' />
+
                                 <h3 className="card-title">{info.title}</h3>
                                 <h4>What you'll need:</h4>
                                 <div className="card-body">
@@ -153,6 +165,7 @@ const Spoon = () => {
                                                 entry.instructions[0].steps.map(step => <p key={step.number} className='card-text'>{step.number}: {step.step}</p>) : null;
 
                                         })}
+
                                     </div>
 
                                 </div>

@@ -28,6 +28,10 @@ body {
     /* font-size: 1rem; */
 }
 
+.favortie{
+  /* background-image: url("heartFilled.png"); */
+  border: 2px solid red;
+}
 
 #warning{
   font-style:italic;
