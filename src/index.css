@@ -28,10 +28,6 @@ body {
     /* font-size: 1rem; */
 }
 
-.favortie{
-  /* background-image: url("heartFilled.png"); */
-  border: 2px solid red;
-}
 
 #warning{
   font-style:italic;
@@ -102,10 +98,22 @@ footer{
   background-color: var(--color6); 
 margin-bottom: 20rem;
 min-height: 60%;
-opacity: 90%;
+opacity: 95%;
 padding: 2rem;
 
 
+ }
+
+ .actionButtons{
+  display: grid;
+  grid-template-columns: 3fr 1fr 1fr;
+
+
+ }
+
+ .favorite{
+  margin: .2rem auto;
+  padding-top: .6rem;
  }
 
  button, .btn{
@@ -184,6 +192,8 @@ margin-bottom: 2rem;
     display: flex;
     flex-direction: column;
     align-content: center;
+    max-width: 75%;
+    margin: auto;
 
   }
 

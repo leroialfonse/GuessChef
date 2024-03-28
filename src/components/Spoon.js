@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import '../index.css';
 
-import ReactDOM from 'react-dom'
 
 
 
@@ -15,7 +14,7 @@ const Spoon = () => {
     const [recipeData, setRecipeData] = useState([]);
 
     // Favorite a recipe
-    const [isFavorite, setIsFavorite] = useState(false)
+    const [isFavorite, setIsFavorite] = useState({})
 
     // Do I need one for the recipe id?? Let's come back later.
     // const [instructionsId, setInstructionsId] = React.useState({});
@@ -53,7 +52,9 @@ const Spoon = () => {
             .then(res => res.json())
             .then(data => {
                 // Set response to recipes state
-                setRecipeData(data, isFavorite);
+                setRecipeData(data);
+
+                console.log(recipeData)
                 // Clear old instructions
                 setInstructionsList([]);
                 // setIsLoading(false);
@@ -88,16 +89,27 @@ const Spoon = () => {
                 // Use the recipeId from the function param
                 setInstructionsList(prevList => [...prevList, { recipeId, instructions: instructionData }]);
 
+
             })
+
+
     };
+
+
 
 
     // Mark a recipe as a favorite
     const markFavorite = (recipeId) => {
-        //   let  heart = document.getElement(".favorite").innerHTML = 
-        setIsFavorite(prevState => !prevState)
+        setIsFavorite(prevFavorite => {
+            const updatedFavorite = { ...prevFavorite };
+            updatedFavorite[recipeId] = !updatedFavorite[recipeId]
+            // document.getElementById('#reactToast').innerText = 'Saved!'
+            return updatedFavorite
+
+        })
     }
-    let heartIcon = isFavorite ? '/images/filledHeart.png' : '/images/lilHeart.png'
+
+    // let heartIcon = isFavorite ? '/images/filledHeart.png' : '/images/lilHeart.png'
 
 
 
@@ -115,7 +127,7 @@ const Spoon = () => {
 
                 {/* <div className="App" style={{ textAlign: 'center' }}> */}
                 <h1>Guess Chef!</h1>
-                <h2>Hungry? Let's make a Snack!!</h2>
+                <h2>Let's make a Snack!!</h2>
 
                 {/* <img onLoad={loadingDisplay} /> */}
                 <div className='searchIngredients'>
@@ -148,7 +160,6 @@ const Spoon = () => {
                         < div key={info.id} >
                             <div className="card">
                                 <img src={info.image} className="card-img-top" alt={info.title} style={{ borderRadius: '10px' }} />
-                                <img id={info.id} src={heartIcon} className="favorite" onClick={markFavorite} alt='Mark as Favorite' />
 
                                 <h3 className="card-title">{info.title}</h3>
                                 <h4>What you'll need:</h4>
@@ -157,8 +168,12 @@ const Spoon = () => {
                                     {info.missedIngredients.concat(info.usedIngredients).map(item => <ul><li><p>{item.original}</p></li></ul>)}
                                     {/* <h3 className='card-title'>   {info.missedIngredients} </h3> */}
                                     <div>
-
-                                        <button onClick={() => { getInstructions(info.id) }}>Let's Make It!</button>
+                                        <div className='actionButtons'>
+                                            <button onClick={() => { getInstructions(info.id) }}>Let's Make It!</button>
+                                            <img src={isFavorite[info.id] ? '/images/filledHeart.png' : '/images/lilHeart.png'
+                                            } className="favorite" onClick={() => markFavorite(info.id)} alt='Mark as Favorite' />
+                                            <span id='reactToast'></span>
+                                        </div>
                                         {/* Loop through the recipes and displayy the instructions */}
                                         {instructionsList.map(entry => {
                                             return entry.recipeId === info.id ?
