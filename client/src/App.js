@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './index.css';
 
-// import Spoon from './components/Spoon';
+import Spoon from './components/Spoon';
 
 
 
@@ -21,7 +21,7 @@ function App() {
   return (
     <>
 
-      {/* <Spoon /> */}
+      <Spoon />
       <div>
         <h1 >{message}</h1>
       </div>
