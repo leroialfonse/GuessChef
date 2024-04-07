@@ -22,7 +22,9 @@ function App() {
     <>
 
       <Spoon />
+      {/* HeY! Use local storage!!!  */}
       <div>
+
         <h1 >{message}</h1>
       </div>
 
