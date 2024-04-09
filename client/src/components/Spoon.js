@@ -9,6 +9,17 @@ import '../index.css';
 const apiKey = process.env.REACT_APP_API
 const Spoon = () => {
 
+    // Using local storage to favorite a recipe.
+    const savedFavorite = JSON.parse(localStorage.getItem('favorited'))
+
+    //State to save the favorited items
+    const [favorites, setFavorites] = useState(savedFavorite)
+
+    // And, the useEffect to handle the favorite recipes list.
+    useEffect(() => {
+        localStorage.setItem('favorites', JSON.stringify(favorites))
+    }, [favorites])
+
     // create some state state for user input, recipe data and recipe instructions.
     const [userInput, setUserInput] = useState('');
     const [recipeData, setRecipeData] = useState([]);
@@ -100,11 +111,14 @@ const Spoon = () => {
 
     // Mark a recipe as a favorite
     const markFavorite = (recipeId) => {
-        setIsFavorite(prevFavorite => {
-            const updatedFavorite = { ...prevFavorite };
-            updatedFavorite[recipeId] = !updatedFavorite[recipeId]
-            // document.getElementById('#reactToast').innerText = 'Saved!'
-            return updatedFavorite
+        // setIsFavorite(prevFavorite => {
+        //     const updatedFavorite = { ...prevFavorite };
+        //     updatedFavorite[recipeId] = !updatedFavorite[recipeId]
+        //     // document.getElementById('#reactToast').innerText = 'Saved!'
+        //     return updatedFavorite
+
+        // })
+        setFavorites(prevFavorite => {
 
         })
     }
