@@ -120,6 +120,8 @@ const Spoon = () => {
         // })
         // What I want to do, is mark a favorite, and then send that favorite to the favorite list, to be recalled later.
         setFavorites(prevFavorite => {
+            // I'm pretty sure I can use the existing code, and add the capability to add these items to a favorite list.
+
 
         })
     }
