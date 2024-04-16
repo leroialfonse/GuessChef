@@ -10,9 +10,12 @@ const apiKey = process.env.REACT_APP_API
 const Spoon = () => {
 
     // Using local storage to favorite a recipe.
-    const savedFavorite = JSON.parse(localStorage.getItem('favorited'))
+    const savedFavorite = JSON.parse(localStorage.getItem('favorites'))
 
-    //State to save the favorited items
+
+    ///////////////
+
+    //State to save the favorites items
     const [favorites, setFavorites] = useState(savedFavorite)
 
     // And, the useEffect to handle the favorite recipes list.
@@ -20,15 +23,16 @@ const Spoon = () => {
         localStorage.setItem('favorites', JSON.stringify(favorites))
     }, [favorites])
 
+
+    ///////////////////////
+
+
     // create some state state for user input, recipe data and recipe instructions.
     const [userInput, setUserInput] = useState('');
     const [recipeData, setRecipeData] = useState([]);
 
     // Favorite a recipe
     const [isFavorite, setIsFavorite] = useState({})
-
-    // Do I need one for the recipe id?? Let's come back later.
-    // const [instructionsId, setInstructionsId] = React.useState({});
 
     const [instructionsList, setInstructionsList] = React.useState([]);
 
@@ -111,20 +115,44 @@ const Spoon = () => {
 
     // Mark a recipe as a favorite
     const markFavorite = (recipeId) => {
-        // setIsFavorite(prevFavorite => {
-        //     const updatedFavorite = { ...prevFavorite };
-        //     updatedFavorite[recipeId] = !updatedFavorite[recipeId]
-        //     // document.getElementById('#reactToast').innerText = 'Saved!'
-        //     return updatedFavorite
-
-        // })
-        // What I want to do, is mark a favorite, and then send that favorite to the favorite list, to be recalled later.
-        setFavorites(prevFavorite => {
-            // I'm pretty sure I can use the existing code, and add the capability to add these items to a favorite list.
+        setIsFavorite(prevFavorite => {
+            const updatedFavorite = { ...prevFavorite };
+            updatedFavorite[recipeId] = !updatedFavorite[recipeId]
+            // document.getElementById('#reactToast').innerText = 'Saved!'
+            return updatedFavorite
 
 
         })
+        // What I want to do, is mark a favorite, and then send that favorite to the favorite list, to be recalled later.
+        // setFavorites(prevFavorite => {
+        // I'm pretty sure I can use the existing code, and add the capability to add these items to a favorite list.
+
+        // })
     }
+
+    // And, return the favorited recipes ...
+
+    const getFavorites = async (favoriteRecipeId) => {
+        // Prevent default submit action bahh this drove me crazy for a little 
+        // e.preventDefault();
+        //Initialize variable so value assigned is done each get
+        // let instructionsId;
+        // Checking that I'm pulling the id correctly
+        console.log("favorites Id:", favoriteRecipeId);
+        // fetch(`https://api.spoonacular.com/recipes/${instructionsId}/analyzedInstructions$apiKey=${apiKey1}`)
+        await fetch(`https://api.spoonacular.com/recipes/${favoriteRecipeId}/analyzedInstructions?apiKey=${apiKey}`)
+
+            .then(res => res.json())
+            .then(instructionData => {
+                console.log(instructionData)
+                // Use the recipeId from the function param
+                setInstructionsList(prevList => [...prevList, { favoriteRecipeId, instructions: instructionData }]);
+
+
+            })
+
+
+    };
 
     // let heartIcon = isFavorite ? '/images/filledHeart.png' : '/images/lilHeart.png'
 
@@ -136,7 +164,7 @@ const Spoon = () => {
     //         <video autoPlay='true' source="../public/images/spinner.gif" />
     //     }
     // }
-
+    console.log(favorites)
     return (
         <>
             <main>
@@ -168,6 +196,7 @@ const Spoon = () => {
                     </form>
                 </div>
                 {/* <p id='loading'></p> */}
+
                 <div className='recipes'>
 
                     {/* Let's loop through the Recipes and call the data info... */}
@@ -188,9 +217,11 @@ const Spoon = () => {
                                         <div className='actionButtons'>
                                             <button onClick={() => { getInstructions(info.id) }}>Let's Make It!</button>
                                             <img src={isFavorite[info.id] ? '/images/filledHeart.png' : '/images/lilHeart.png'
-                                            } className="favorite" onClick={() => markFavorite(info.id)} alt='Mark as Favorite' />
+                                            } className="favorite" onClick={() => markFavorite(info.id)} favorites={favorites} setFavorites={setFavorites} alt='Mark as Favorite' />
                                             <span id='reactToast'></span>
+
                                         </div>
+
                                         {/* Loop through the recipes and displayy the instructions */}
                                         {instructionsList.map(entry => {
                                             return entry.recipeId === info.id ?
@@ -199,6 +230,7 @@ const Spoon = () => {
                                         })}
 
                                     </div>
+
 
                                 </div>
                             </div>
