@@ -229,6 +229,12 @@ const Spoon = () => {
 
                                         })}
 
+                                        {/* Running the get favorites function */}
+
+                                        <button onClick={() => { getInstructions(info.id) }}>Let's Make It!</button>
+                                        <img src={isFavorite[info.id] ? '/images/filledHeart.png' : '/images/lilHeart.png'
+                                        } className="favorite" onClick={() => markFavorite(info.id)} favorites={favorites} setFavorites={setFavorites} alt='Mark as Favorite' />
+
                                     </div>
 
 
