@@ -27,7 +27,7 @@ const Spoon = () => {
     ///////////////////////
 
 
-    // create some state state for user input, recipe data and recipe instructions.
+    // create some state sta    qte for user input, recipe data and recipe instructions.
     const [userInput, setUserInput] = useState('');
     const [recipeData, setRecipeData] = useState([]);
 
