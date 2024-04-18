@@ -16,6 +16,7 @@ const Spoon = () => {
     ///////////////
 
     //State to save the favorites items
+    // Go check the scrimba about this.. maybe some hints?
     const [favorites, setFavorites] = useState(savedFavorite)
 
     // And, the useEffect to handle the favorite recipes list.
