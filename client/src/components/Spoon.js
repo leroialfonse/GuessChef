@@ -9,26 +9,24 @@ import '../index.css';
 const apiKey = process.env.REACT_APP_API
 const Spoon = () => {
 
-    // Using local storage to favorite a recipe.
-    const savedFavorite = JSON.parse(localStorage.getItem('favorites'))
+    console.log(localStorage)
+
+    const [items, setItems] = useState([])
 
 
-    ///////////////
-
-    //State to save the favorites items
-    // Go check the scrimba about this.. maybe some hints?
-    const [favorites, setFavorites] = useState(savedFavorite)
-
-    // And, the useEffect to handle the favorite recipes list.
     useEffect(() => {
-        localStorage.setItem('favorites', JSON.stringify(favorites))
-    }, [favorites])
+        localStorage.setItem('items', JSON.stringify(items))
+    }, [items])
+    ///////////////
+    // I Want to use local storage to save user's favorite recipes.
+
 
 
     ///////////////////////
 
 
-    // create some state sta    qte for user input, recipe data and recipe instructions.
+
+    // create some state state for user input, recipe data and recipe instructions.
     const [userInput, setUserInput] = useState('');
     const [recipeData, setRecipeData] = useState([]);
 
@@ -39,6 +37,7 @@ const Spoon = () => {
 
     // TODO:
     // Considering a loading delay and animation while a user awaits data...
+
 
 
     // Go get three recipes with first Spoonacular call.
@@ -165,7 +164,7 @@ const Spoon = () => {
     //         <video autoPlay='true' source="../public/images/spinner.gif" />
     //     }
     // }
-    console.log(favorites)
+    // console.log(favorites)
     return (
         <>
             <main>
@@ -217,8 +216,8 @@ const Spoon = () => {
                                     <div>
                                         <div className='actionButtons'>
                                             <button onClick={() => { getInstructions(info.id) }}>Let's Make It!</button>
-                                            <img src={isFavorite[info.id] ? '/images/filledHeart.png' : '/images/lilHeart.png'
-                                            } className="favorite" onClick={() => markFavorite(info.id)} favorites={favorites} setFavorites={setFavorites} alt='Mark as Favorite' />
+                                            <button items={items} setItems={setItems}><img src={isFavorite[info.id] ? '/images/filledHeart.png' : '/images/lilHeart.png'
+                                            } className="favorite" onClick={() => markFavorite(info.id)} alt='Mark as Favorite' /></button>
                                             <span id='reactToast'></span>
 
                                         </div>
@@ -230,11 +229,6 @@ const Spoon = () => {
 
                                         })}
 
-                                        {/* Running the get favorites function */}
-
-                                        <button onClick={() => { getInstructions(info.id) }}>Let's Make It!</button>
-                                        <img src={isFavorite[info.id] ? '/images/filledHeart.png' : '/images/lilHeart.png'
-                                        } className="favorite" onClick={() => markFavorite(info.id)} favorites={favorites} setFavorites={setFavorites} alt='Mark as Favorite' />
 
                                     </div>
 
