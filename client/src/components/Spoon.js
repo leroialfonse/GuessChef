@@ -1,12 +1,10 @@
-
-
 import React, { useState, useEffect } from 'react';
 import '../index.css';
 
 
-
-
 const apiKey = process.env.REACT_APP_API
+
+
 const Spoon = () => {
 
     console.log(localStorage)
@@ -119,10 +117,14 @@ const Spoon = () => {
             const updatedFavorite = { ...prevFavorite };
             updatedFavorite[recipeId] = !updatedFavorite[recipeId]
             // document.getElementById('#reactToast').innerText = 'Saved!'
-            return updatedFavorite
 
+            setItems(prevItems => {
+                {...items, }
+})
 
-        })
+    return updatedFavorite
+
+})
         // What I want to do, is mark a favorite, and then send that favorite to the favorite list, to be recalled later.
         // setFavorites(prevFavorite => {
         // I'm pretty sure I can use the existing code, and add the capability to add these items to a favorite list.
@@ -130,133 +132,132 @@ const Spoon = () => {
         // })
     }
 
-    // And, return the favorited recipes ...
+// And, return the favorited recipes ...
 
-    const getFavorites = async (favoriteRecipeId) => {
-        // Prevent default submit action bahh this drove me crazy for a little 
-        // e.preventDefault();
-        //Initialize variable so value assigned is done each get
-        // let instructionsId;
-        // Checking that I'm pulling the id correctly
-        console.log("favorites Id:", favoriteRecipeId);
-        // fetch(`https://api.spoonacular.com/recipes/${instructionsId}/analyzedInstructions$apiKey=${apiKey1}`)
-        await fetch(`https://api.spoonacular.com/recipes/${favoriteRecipeId}/analyzedInstructions?apiKey=${apiKey}`)
+const getFavorites = async (favoriteRecipeId) => {
+    // Prevent default submit action bahh this drove me crazy for a little 
+    // e.preventDefault();
+    //Initialize variable so value assigned is done each get
+    // let instructionsId;
+    // Checking that I'm pulling the id correctly
+    console.log("favorites Id:", favoriteRecipeId);
+    // fetch(`https://api.spoonacular.com/recipes/${instructionsId}/analyzedInstructions$apiKey=${apiKey1}`)
+    await fetch(`https://api.spoonacular.com/recipes/${favoriteRecipeId}/analyzedInstructions?apiKey=${apiKey}`)
 
-            .then(res => res.json())
-            .then(instructionData => {
-                console.log(instructionData)
-                // Use the recipeId from the function param
-                setInstructionsList(prevList => [...prevList, { favoriteRecipeId, instructions: instructionData }]);
-
-
-            })
+        .then(res => res.json())
+        .then(instructionData => {
+            console.log(instructionData)
+            // Use the recipeId from the function param
+            setInstructionsList(prevList => [...prevList, { favoriteRecipeId, instructions: instructionData }]);
 
 
-    };
-
-    // let heartIcon = isFavorite ? '/images/filledHeart.png' : '/images/lilHeart.png'
+        })
 
 
+};
 
-    // A function to trigger a loading gif ?? I'll come back to this.
-    // const loadingDisplay = () => {
-    //     if (isLoading) {
-    //         <video autoPlay='true' source="../public/images/spinner.gif" />
-    //     }
-    // }
-    // console.log(favorites)
-    return (
-        <>
-            <main>
+// let heartIcon = isFavorite ? '/images/filledHeart.png' : '/images/lilHeart.png'
 
 
-                {/* <div className="App" style={{ textAlign: 'center' }}> */}
-                <h1>Guess Chef!</h1>
-                <h2>Let's make a Snack!!</h2>
 
-                {/* <img onLoad={loadingDisplay} /> */}
-                <div className='searchIngredients'>
+// A function to trigger a loading gif ?? I'll come back to this.
+// const loadingDisplay = () => {
+//     if (isLoading) {
+//         <video autoPlay='true' source="../public/images/spinner.gif" />
+//     }
+// }
+// console.log(favorites)
+return (
+    <>
+        <main>
 
 
-                    <h3 className='explainer'>Hungry, but can't decide what to have? Let Guess Chef help! Just type in ingredients you have into the search bar, and Guess Chef will suggest a few easy recipes you could make!</h3>
+            {/* <div className="App" style={{ textAlign: 'center' }}> */}
+            <h1>Guess Chef!</h1>
+            <h2>Let's make a Snack!!</h2>
 
-                    {/* Pass in event as arg to preventDefault action of form submit */}
+            {/* <img onLoad={loadingDisplay} /> */}
+            <div className='searchIngredients'>
 
-                    <form onSubmit={(e) => getRecipes(e)}>
-                        <input className='inputStyle' type="text" placeholder="search by Ingredient..." onChange={(e) => setUserInput(e.target.value)} />
-                        {/* <div style={{ margin:h'1em' }}> */}
-                        <div id='warning'></div>
-                        {/* <button className="btn btn-large" style={btnStyle} type='submit'>Let's eat!</button> */}
-                        <button className="btn btn-large" type='submit'>Let's eat!</button>
 
-                        {/* Thinking about adding a "Suprise me!" Button for random recipes. */}
-                        {/* <button className="btn btn-large" style={btnStyle} type='submit'>Let's eat!</button> */}
+                <h3 className='explainer'>Hungry, but can't decide what to have? Let Guess Chef help! Just type in ingredients you have into the search bar, and Guess Chef will suggest a few easy recipes you could make!</h3>
 
-                        {/* </div> */}
-                    </form>
-                </div>
-                {/* <p id='loading'></p> */}
+                {/* Pass in event as arg to preventDefault action of form submit */}
 
-                <div className='recipes'>
+                <form onSubmit={(e) => getRecipes(e)}>
+                    <input className='inputStyle' type="text" placeholder="search by Ingredient..." onChange={(e) => setUserInput(e.target.value)} />
+                    {/* <div style={{ margin:h'1em' }}> */}
+                    <div id='warning'></div>
+                    {/* <button className="btn btn-large" style={btnStyle} type='submit'>Let's eat!</button> */}
+                    <button className="btn btn-large" type='submit'>Let's eat!</button>
 
-                    {/* Let's loop through the Recipes and call the data info... */}
+                    {/* Thinking about adding a "Suprise me!" Button for random recipes. */}
+                    {/* <button className="btn btn-large" style={btnStyle} type='submit'>Let's eat!</button> */}
 
-                    {recipeData.map((info) => (
+                    {/* </div> */}
+                </form>
+            </div>
+            {/* <p id='loading'></p> */}
 
-                        < div key={info.id} >
-                            <div className="card">
-                                <img src={info.image} className="card-img-top" alt={info.title} style={{ borderRadius: '10px' }} />
+            <div className='recipes'>
 
-                                <h3 className="card-title">{info.title}</h3>
-                                <h4>What you'll need:</h4>
-                                <div className="card-body">
-                                    {/* {info.missedIngredients.map(item => item.original).concat(info.usedIngredients.map(remainder => remainder.orginal))} */}
-                                    {info.missedIngredients.concat(info.usedIngredients).map(item => <ul><li><p>{item.original}</p></li></ul>)}
-                                    {/* <h3 className='card-title'>   {info.missedIngredients} </h3> */}
-                                    <div>
-                                        <div className='actionButtons'>
-                                            <button onClick={() => { getInstructions(info.id) }}>Let's Make It!</button>
-                                            <button items={items} setItems={setItems}><img src={isFavorite[info.id] ? '/images/filledHeart.png' : '/images/lilHeart.png'
-                                            } className="favorite" onClick={() => markFavorite(info.id)} alt='Mark as Favorite' /></button>
-                                            <span id='reactToast'></span>
+                {/* Let's loop through the Recipes and call the data info... */}
 
-                                        </div>
+                {recipeData.map((info) => (
 
-                                        {/* Loop through the recipes and displayy the instructions */}
-                                        {instructionsList.map(entry => {
-                                            return entry.recipeId === info.id ?
-                                                entry.instructions[0].steps.map(step => <p key={step.number} className='card-text'>{step.number}: {step.step}</p>) : null;
+                    < div key={info.id} >
+                        <div className="card">
+                            <img src={info.image} className="card-img-top" alt={info.title} style={{ borderRadius: '10px' }} />
 
-                                        })}
-
+                            <h3 className="card-title">{info.title}</h3>
+                            <h4>What you'll need:</h4>
+                            <div className="card-body">
+                                {/* {info.missedIngredients.map(item => item.original).concat(info.usedIngredients.map(remainder => remainder.orginal))} */}
+                                {info.missedIngredients.concat(info.usedIngredients).map(item => <ul><li><p>{item.original}</p></li></ul>)}
+                                {/* <h3 className='card-title'>   {info.missedIngredients} </h3> */}
+                                <div>
+                                    <div className='actionButtons'>
+                                        <button onClick={() => { getInstructions(info.id) }}>Let's Make It!</button>
+                                        <button items={items} setItems={setItems}><img src={isFavorite[info.id] ? '/images/filledHeart.png' : '/images/lilHeart.png'
+                                        } className="favorite" onClick={() => markFavorite(info.id)} alt='Mark as Favorite' /></button>
 
                                     </div>
 
+                                    {/* Loop through the recipes and displayy the instructions */}
+                                    {instructionsList.map(entry => {
+                                        return entry.recipeId === info.id ?
+                                            entry.instructions[0].steps.map(step => <p key={step.number} className='card-text'>{step.number}: {step.step}</p>) : null;
+
+                                    })}
+
 
                                 </div>
-                            </div>
 
+
+                            </div>
                         </div>
 
+                    </div>
 
-                    ))}
-                </div >
 
-                {/* </div// > */}
-                {/* <footer>
+                ))}
+            </div >
+
+            {/* </div// > */}
+            {/* <footer>
                 <span><small>BrandonWhite &copy; 2024</small></span>
                 <span><small>Recipes provided by Spoonacular API</small></span>
             </footer> */}
 
-            </main>
-            {/* <footer>
+        </main>
+        {/* <footer>
                 <span><small>BrandonWhite &copy; 2024</small></span>
                 <br></br>
                 <span><small>Recipes provided by Spoonacular API</small></span>
             </footer> */}
-        </>
+    </>
 
-    );
+);
 
 
 
